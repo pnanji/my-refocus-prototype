@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Home, LifeBuoy, Lock, Settings, Users } from "lucide-react"
+import Image from "next/image"
 
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -60,10 +61,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <Sidebar variant="inset" className="border-r bg-sidebar text-sidebar-foreground" {...props}>
         <SidebarHeader className="flex justify-center items-center py-4">
           <div className="w-full flex justify-center items-center">
-            <img 
+            <Image 
               src="/ReFocus Logo.svg" 
               alt="ReFocus AI Logo" 
-              className="h-9 w-auto scale-95"
+              width={108}
+              height={36}
+              className="scale-95"
+              priority
             />
           </div>
         </SidebarHeader>

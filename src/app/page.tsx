@@ -4,14 +4,24 @@ import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown, Download } from "lucide-react";
 import React from "react";
 
+// Define the type for our data
+type RiskData = {
+  name: string;
+  riskLevel: 'High' | 'Medium' | 'Low';
+  reason: string;
+  renewalDate: string;
+  dateAdded: string;
+  premium: number;
+};
+
 export default function Home() {
   const [sorting, setSorting] = React.useState({ column: 'name', direction: 'asc' });
+  const [selectedRows, setSelectedRows] = React.useState<string[]>([]);
 
   const handleSort = (column: string) => {
     setSorting(prev => ({
@@ -20,17 +30,31 @@ export default function Home() {
     }));
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedRows(sortedData.map(item => item.name));
+    } else {
+      setSelectedRows([]);
+    }
+  };
+
+  const handleSelectRow = (name: string, checked: boolean) => {
+    if (checked) {
+      setSelectedRows(prev => [...prev, name]);
+    } else {
+      setSelectedRows(prev => prev.filter(row => row !== name));
+    }
+  };
+
   const sortedData = [...atRiskData].sort((a, b) => {
     const direction = sorting.direction === 'asc' ? 1 : -1;
-    // @ts-ignore - we know these properties exist
-    const aValue = a[sorting.column];
-    // @ts-ignore - we know these properties exist
-    const bValue = b[sorting.column];
+    const aValue = a[sorting.column as keyof RiskData];
+    const bValue = b[sorting.column as keyof RiskData];
     
     if (typeof aValue === 'string') {
-      return direction * aValue.localeCompare(bValue);
+      return direction * aValue.localeCompare(String(bValue));
     }
-    return direction * (aValue - bValue);
+    return direction * (Number(aValue) - Number(bValue));
   });
 
   return (
@@ -104,7 +128,10 @@ export default function Home() {
                 <TableRow className="h-12">
                   <TableHead className="w-12 p-0">
                     <div className="h-12 w-12 flex items-center justify-center">
-                      <Checkbox />
+                      <Checkbox 
+                        checked={selectedRows.length === sortedData.length}
+                        onCheckedChange={handleSelectAll}
+                      />
                     </div>
                   </TableHead>
                   {[
@@ -135,7 +162,10 @@ export default function Home() {
                   <TableRow key={item.name} className="h-12 hover:bg-orange-50">
                     <TableCell className="w-12 p-0">
                       <div className="h-12 w-12 flex items-center justify-center">
-                        <Checkbox />
+                        <Checkbox 
+                          checked={selectedRows.includes(item.name)}
+                          onCheckedChange={(checked) => handleSelectRow(item.name, checked as boolean)}
+                        />
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">{item.name}</TableCell>
