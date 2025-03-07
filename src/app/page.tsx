@@ -145,13 +145,27 @@ export default function Home() {
                     <TableHead 
                       key={key}
                       onClick={() => handleSort(key)}
-                      className={`border-l cursor-pointer group ${align === 'right' ? 'text-right' : ''}`}
+                      className={`border-l cursor-pointer group ${
+                        sorting.column === key ? 'bg-orange-50' : ''
+                      } ${align === 'right' ? 'text-right' : ''}`}
                     >
                       <div
-                        className="flex items-center justify-between w-full text-gray-600 group-hover:text-foreground"
+                        className={`flex items-center justify-between w-full ${
+                          sorting.column === key 
+                            ? 'text-primary font-medium' 
+                            : 'text-gray-600 group-hover:text-foreground'
+                        }`}
                       >
                         <span>{label}</span>
-                        <ArrowUpDown className="h-3.5 w-3.5 ml-2" />
+                        <ArrowUpDown 
+                          className={`h-3.5 w-3.5 ml-2 transition-transform ${
+                            sorting.column === key
+                              ? sorting.direction === 'asc'
+                                ? 'text-primary'
+                                : 'text-primary rotate-180'
+                              : 'text-muted-foreground/50 group-hover:text-muted-foreground'
+                          }`}
+                        />
                       </div>
                     </TableHead>
                   ))}

@@ -3,6 +3,8 @@
 import * as React from "react"
 import { Home, LifeBuoy, Lock, Settings, Users } from "lucide-react"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
 
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -56,6 +58,8 @@ const userData = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+  
   return (
     <div className="dark">
       <Sidebar variant="inset" className="border-r bg-sidebar text-sidebar-foreground" {...props}>
@@ -64,9 +68,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Image 
               src="/ReFocus Logo.svg" 
               alt="ReFocus AI Logo" 
-              width={108}
+              width={132}
               height={36}
-              className="scale-95"
               priority
             />
           </div>
@@ -75,16 +78,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
-                {navItems.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url} className="flex items-center gap-2">
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {navItems.map((item) => {
+                  const isActive = 
+                    pathname === item.url || 
+                    (item.url !== '/' && pathname.startsWith(item.url));
+                    
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild isActive={isActive}>
+                        <Link 
+                          href={item.url} 
+                          className="flex items-center gap-2"
+                        >
+                          <item.icon className="h-5 w-5" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
