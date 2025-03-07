@@ -1,101 +1,183 @@
-import Image from "next/image";
+"use client";
+
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ArrowUpDown, Download } from "lucide-react";
+import React from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [sorting, setSorting] = React.useState({ column: 'name', direction: 'asc' });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleSort = (column: string) => {
+    setSorting(prev => ({
+      column,
+      direction: prev.column === column && prev.direction === 'asc' ? 'desc' : 'asc'
+    }));
+  };
+
+  const sortedData = [...atRiskData].sort((a, b) => {
+    const direction = sorting.direction === 'asc' ? 1 : -1;
+    // @ts-ignore - we know these properties exist
+    const aValue = a[sorting.column];
+    // @ts-ignore - we know these properties exist
+    const bValue = b[sorting.column];
+    
+    if (typeof aValue === 'string') {
+      return direction * aValue.localeCompare(bValue);
+    }
+    return direction * (aValue - bValue);
+  });
+
+  return (
+    <DashboardLayout>
+      <div className="flex flex-col">
+        {/* Header with company name */}
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-semibold">CJ Insurance Group</h1>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* Weekly Insights Section */}
+        <div className="mb-3">
+          <h2 className="text-base font-medium">Weekly Insights</h2>
+        </div>
+
+        {/* Metrics Cards */}
+        <div className="grid grid-cols-4 gap-4 mb-10">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Policies Saved</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="text-2xl font-bold">19</div>
+              <p className="text-xs text-gray-500">+0.8% from last month</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Commission Retained</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="text-2xl font-bold">$10.1k</div>
+              <p className="text-xs text-gray-500">+0.8% from last month</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Accuracy</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="text-2xl font-bold">93%</div>
+              <p className="text-xs text-gray-500">+0.8% from last month</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Top Cancel Reason</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="text-xl font-bold">Change with Property</div>
+              <p className="text-xs text-gray-500">Last Month: Rate Increase</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* At Risk Renewals Table */}
+        <div className="space-y-3">
+          {/* Header with title and download button - now outside any container */}
+          <div className="flex justify-between items-center">
+            <h2 className="text-base font-medium">Remarkets Ready for Review</h2>
+            <Button variant="secondary" size="sm">
+              <Download className="h-4 w-4 mr-2" />
+              Download CSV
+            </Button>
+          </div>
+
+          {/* Table with updated styling */}
+          <div className="rounded-lg border overflow-hidden">
+            <Table className="bg-white">
+              <TableHeader className="bg-gray-50">
+                <TableRow className="h-12">
+                  <TableHead className="w-12 p-0">
+                    <div className="h-12 w-12 flex items-center justify-center">
+                      <Checkbox />
+                    </div>
+                  </TableHead>
+                  {[
+                    { key: 'name', label: 'Name' },
+                    { key: 'riskLevel', label: 'Risk Level' },
+                    { key: 'reason', label: 'Reason' },
+                    { key: 'renewalDate', label: 'Renewal Date' },
+                    { key: 'dateAdded', label: 'Date Added' },
+                    { key: 'premium', label: 'Premium At-Risk', align: 'right' }
+                  ].map(({ key, label, align }) => (
+                    <TableHead 
+                      key={key}
+                      onClick={() => handleSort(key)}
+                      className={`border-l cursor-pointer group ${align === 'right' ? 'text-right' : ''}`}
+                    >
+                      <div
+                        className="flex items-center justify-between w-full text-gray-600 group-hover:text-foreground"
+                      >
+                        <span>{label}</span>
+                        <ArrowUpDown className="h-3.5 w-3.5 ml-2" />
+                      </div>
+                    </TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {sortedData.map((item) => (
+                  <TableRow key={item.name} className="h-12 hover:bg-orange-50">
+                    <TableCell className="w-12 p-0">
+                      <div className="h-12 w-12 flex items-center justify-center">
+                        <Checkbox />
+                      </div>
+                    </TableCell>
+                    <TableCell className="font-medium">{item.name}</TableCell>
+                    <TableCell>
+                      <Badge 
+                        variant={
+                          item.riskLevel === 'High' ? 'destructive' : 
+                          item.riskLevel === 'Medium' ? 'warning' : 
+                          'secondary'
+                        }
+                      >
+                        {item.riskLevel}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{item.reason}</TableCell>
+                    <TableCell>{item.renewalDate}</TableCell>
+                    <TableCell>{item.dateAdded}</TableCell>
+                    <TableCell className="text-right">${item.premium.toLocaleString()}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <div className="flex items-center justify-end space-x-2 py-4 px-4 border-t">
+              <Button variant="outline" size="sm" className="text-gray-600">Previous</Button>
+              <Button variant="outline" size="sm" className="text-gray-600">Next</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
   );
 }
+
+const atRiskData = [
+  { name: "Sophia Anderson", riskLevel: "High", reason: "Lifestyle Change", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 2345 },
+  { name: "Liam Johnson", riskLevel: "High", reason: "Rate Increase", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 3876 },
+  { name: "Olivia Martinez", riskLevel: "Medium", reason: "Rate Increase", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 1234 },
+  { name: "Noah Brown", riskLevel: "Low", reason: "Lifestyle Change", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 2789 },
+  { name: "Emma Wilson", riskLevel: "Medium", reason: "Underinsured", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 3456 },
+  { name: "Aiden Taylor", riskLevel: "High", reason: "Lifestyle Change", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 1987 },
+  { name: "Isabella Thomas", riskLevel: "Medium", reason: "Lifestyle Change", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 2145 },
+  { name: "Lucas Garcia", riskLevel: "Medium", reason: "Underinsured", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 3012 },
+  { name: "Mia Rodriguez", riskLevel: "High", reason: "Lifestyle Change", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 4000 },
+  { name: "Ethan Lee", riskLevel: "High", reason: "Rate Increase", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 2678 }
+];
