@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
@@ -9,10 +9,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ExternalLink, ChevronRight } from 'lucide-react';
 import { getClientById, getClientSummary, getHomeQuoteByClientId, getAutoQuoteByClientId } from '@/lib/data';
-import { HomeQuote, AutoQuote } from '@/lib/types';
 // Import all data for debugging
 import homeQuotes from '@/data/homeQuotes.json';
 import autoQuotes from '@/data/autoQuotes.json';
