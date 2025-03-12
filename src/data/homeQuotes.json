@@ -1,0 +1,568 @@
+[
+  {
+    "id": "h1",
+    "clientId": "1",
+    "carriers": [
+      {
+        "id": "c1",
+        "name": "Frontline",
+        "premium": 3355,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 264054,
+            "option": "-",
+            "deductible": "1,500/ 1%/ 1,500"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 26405,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 198041,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Loss Of Use (Coverage D)",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Debris Removal",
+            "limit": "500 / 1000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Hurricane",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1%"
+          },
+          {
+            "type": "Building Ordinance or Law Coverage",
+            "limit": 26405,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Business Property Away From Home",
+            "limit": 500,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Mold Coverage",
+            "limit": 10000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Unscheduled Jewelry, Watches, Furs",
+            "limit": 2500,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "name": "Progressive",
+        "premium": 3045,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 267389,
+            "option": "-",
+            "deductible": "1,500/ 1%/ 15,000"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 26738,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 199231,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Loss Of Use (Coverage D)",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Debris Removal",
+            "limit": "500 / 1000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Hurricane",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Building Ordinance or Law Coverage",
+            "limit": 26738,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Business Property Away From Home",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Mold Coverage",
+            "limit": 10000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Unscheduled Jewelry, Watches, Furs",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "name": "Citizens",
+        "premium": 4058,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 259869,
+            "option": "-",
+            "deductible": "2,000/ 1%/ 1,500"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 25986,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 199231,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Loss Of Use (Coverage D)",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Debris Removal",
+            "limit": "500 / 1000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Hurricane",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1.5%"
+          },
+          {
+            "type": "Building Ordinance or Law Coverage",
+            "limit": 25986,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Business Property Away From Home",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Mold Coverage",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Unscheduled Jewelry, Watches, Furs",
+            "limit": 2500,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "h2",
+    "clientId": "2",
+    "carriers": [
+      {
+        "id": "c1",
+        "name": "Frontline",
+        "premium": 2145,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 220000,
+            "option": "-",
+            "deductible": "1,000/ 1%/ 1,000"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 22000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 165000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "name": "Progressive",
+        "premium": 2250,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 225000,
+            "option": "-",
+            "deductible": "1,000/ 1%/ 10,000"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 22500,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 168750,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "h3",
+    "clientId": "3",
+    "carriers": [
+      {
+        "id": "c1",
+        "name": "Frontline",
+        "premium": 3876,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 285000,
+            "option": "-",
+            "deductible": "1,500/ 1%/ 1,500"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 28500,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 213750,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Loss Of Use (Coverage D)",
+            "limit": 57000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Debris Removal",
+            "limit": "500 / 1000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Hurricane",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1%"
+          },
+          {
+            "type": "Building Ordinance or Law Coverage",
+            "limit": 28500,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Business Property Away From Home",
+            "limit": 500,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Mold Coverage",
+            "limit": 10000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Unscheduled Jewelry, Watches, Furs",
+            "limit": 2500,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "name": "Progressive",
+        "premium": 3650,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 290000,
+            "option": "-",
+            "deductible": "1,500/ 1%/ 15,000"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 29000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 217500,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Loss Of Use (Coverage D)",
+            "limit": 58000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Debris Removal",
+            "limit": "500 / 1000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Hurricane",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Building Ordinance or Law Coverage",
+            "limit": 29000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Business Property Away From Home",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Mold Coverage",
+            "limit": 10000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Unscheduled Jewelry, Watches, Furs",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "name": "Citizens",
+        "premium": 4125,
+        "coverages": [
+          {
+            "type": "Dwelling (Coverage A)",
+            "limit": 280000,
+            "option": "-",
+            "deductible": "2,000/ 1%/ 1,500"
+          },
+          {
+            "type": "Other Structures (Coverage B)",
+            "limit": 28000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Property",
+            "limit": 210000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Loss Of Use (Coverage D)",
+            "limit": 56000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Personal Liability (Coverage E)",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": 1000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Debris Removal",
+            "limit": "500 / 1000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Hurricane",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1.5%"
+          },
+          {
+            "type": "Building Ordinance or Law Coverage",
+            "limit": 28000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Business Property Away From Home",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Mold Coverage",
+            "limit": 300000,
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Unscheduled Jewelry, Watches, Furs",
+            "limit": 2500,
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      }
+    ]
+  }
+] 

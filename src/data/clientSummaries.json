@@ -1,0 +1,77 @@
+[
+  {
+    "clientId": "1",
+    "customerProfile": "Michelle has been with the agency since 2021, with a previously stable payment history. Over the past year, she has had fewer service requests and no proactive engagement.",
+    "interactionHistory": "Her last interaction was in October 2023, regarding a minor auto claim, with no follow-up on policy adjustments.",
+    "claimsHistory": [
+      {
+        "date": "October 2023",
+        "type": "Auto Claim",
+        "description": "At-Fault Accident: Fender bender at a stoplight",
+        "amount": 2100
+      },
+      {
+        "date": "June 2021",
+        "type": "Homeowners Claim",
+        "description": "Water Damage: Pipe burst in kitchen",
+        "amount": 8500
+      }
+    ],
+    "reasonForRemarket": "Her home renewal includes a 30% premium increase, and she has had two late payments in six months. Past notes indicate pricing concerns and potential carrier switching, making her high risk for non-renewal."
+  },
+  {
+    "clientId": "2",
+    "customerProfile": "Sophia has been with the agency since 2019, with a perfect payment record and multiple policies.",
+    "interactionHistory": "Last contacted the agency in January 2024 to inquire about adding a new vehicle to her policy.",
+    "claimsHistory": [
+      {
+        "date": "March 2022",
+        "type": "Auto Claim",
+        "description": "Not-at-fault collision: Vehicle struck while parked",
+        "amount": 3200
+      }
+    ],
+    "reasonForRemarket": "Lifestyle change - recently purchased a vacation home and looking to bundle all insurance needs with one carrier for maximum discount."
+  },
+  {
+    "clientId": "3",
+    "customerProfile": "Liam joined the agency in 2020 after relocating for work. He maintains three policies with the agency.",
+    "interactionHistory": "Regular communication, last contact in February 2024 regarding potential renovations to his property.",
+    "claimsHistory": [
+      {
+        "date": "December 2023",
+        "type": "Homeowners Claim",
+        "description": "Wind damage to roof during storm",
+        "amount": 4500
+      },
+      {
+        "date": "April 2021",
+        "type": "Auto Claim",
+        "description": "Minor collision in parking lot",
+        "amount": 1800
+      }
+    ],
+    "reasonForRemarket": "Received renewal notice with 25% premium increase due to regional rate adjustments and previous claims history."
+  },
+  {
+    "clientId": "4",
+    "customerProfile": "Olivia has been a client since 2018, holding both home and auto policies.",
+    "interactionHistory": "Speaks with the agency quarterly to review coverage needs. Last contacted in March 2024.",
+    "claimsHistory": [],
+    "reasonForRemarket": "Current carrier announced significant rate increases across her region, affecting all policy types."
+  },
+  {
+    "clientId": "5",
+    "customerProfile": "Noah has been with the agency for over 5 years with multiple policies across different lines.",
+    "interactionHistory": "Prefers digital communication, primarily uses the client portal for all policy needs.",
+    "claimsHistory": [
+      {
+        "date": "September 2022",
+        "type": "Auto Claim",
+        "description": "Hail damage to vehicle",
+        "amount": 2300
+      }
+    ],
+    "reasonForRemarket": "Planning to downsize home and purchase a vacation property, requiring adjustment to all insurance needs."
+  }
+] 

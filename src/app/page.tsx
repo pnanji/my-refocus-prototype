@@ -7,10 +7,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown, Download } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { getClients } from "@/lib/data";
 
 // Define the type for our data
 type RiskData = {
+  id: string;
   name: string;
   riskLevel: 'High' | 'Medium' | 'Low';
   reason: string;
@@ -20,8 +23,12 @@ type RiskData = {
 };
 
 export default function Home() {
+  const router = useRouter();
   const [sorting, setSorting] = React.useState({ column: 'name', direction: 'asc' });
   const [selectedRows, setSelectedRows] = React.useState<string[]>([]);
+
+  // Get clients data
+  const clientsData = getClients();
 
   const handleSort = (column: string) => {
     setSorting(prev => ({
@@ -46,7 +53,11 @@ export default function Home() {
     }
   };
 
-  const sortedData = [...atRiskData].sort((a, b) => {
+  const handleRowClick = (clientId: string) => {
+    router.push(`/clients/${clientId}?tab=quotes`);
+  };
+
+  const sortedData = [...clientsData].sort((a, b) => {
     const direction = sorting.direction === 'asc' ? 1 : -1;
     const aValue = a[sorting.column as keyof RiskData];
     const bValue = b[sorting.column as keyof RiskData];
@@ -173,8 +184,15 @@ export default function Home() {
               </TableHeader>
               <TableBody>
                 {sortedData.map((item) => (
-                  <TableRow key={item.name} className="h-12 hover:bg-orange-50">
-                    <TableCell className="w-12 p-0">
+                  <TableRow 
+                    key={item.id}
+                    className="h-12 hover:bg-orange-50 cursor-pointer"
+                    onClick={() => handleRowClick(item.id)}
+                  >
+                    <TableCell 
+                      className="w-12 p-0"
+                      onClick={(e) => e.stopPropagation()} // Prevent row click when clicking on checkbox
+                    >
                       <div className="h-12 w-12 flex items-center justify-center">
                         <Checkbox 
                           checked={selectedRows.includes(item.name)}
@@ -212,16 +230,3 @@ export default function Home() {
     </DashboardLayout>
   );
 }
-
-const atRiskData = [
-  { name: "Sophia Anderson", riskLevel: "High", reason: "Lifestyle Change", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 2345 },
-  { name: "Liam Johnson", riskLevel: "High", reason: "Rate Increase", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 3876 },
-  { name: "Olivia Martinez", riskLevel: "Medium", reason: "Rate Increase", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 1234 },
-  { name: "Noah Brown", riskLevel: "Low", reason: "Lifestyle Change", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 2789 },
-  { name: "Emma Wilson", riskLevel: "Medium", reason: "Underinsured", renewalDate: "1/1/2025", dateAdded: "12/1/2024", premium: 3456 },
-  { name: "Aiden Taylor", riskLevel: "High", reason: "Lifestyle Change", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 1987 },
-  { name: "Isabella Thomas", riskLevel: "Medium", reason: "Lifestyle Change", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 2145 },
-  { name: "Lucas Garcia", riskLevel: "Medium", reason: "Underinsured", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 3012 },
-  { name: "Mia Rodriguez", riskLevel: "High", reason: "Lifestyle Change", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 4000 },
-  { name: "Ethan Lee", riskLevel: "High", reason: "Rate Increase", renewalDate: "1/15/2025", dateAdded: "12/1/2024", premium: 2678 }
-];

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { PanelLeftIcon } from "lucide-react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
@@ -12,6 +12,7 @@ import {
   BreadcrumbSeparator 
 } from "@/components/ui/breadcrumb";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -19,6 +20,10 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
+  const pathSegments = pathname.split("/").filter(segment => segment);
+  
+  // Function to capitalize the first letter of a string
+  const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
   
   return (
     <div className="flex h-screen w-full">
@@ -35,19 +40,28 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             
             <nav aria-label="breadcrumb">
               <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                </BreadcrumbItem>
-                
-                {pathname !== "/" && (
-                  <>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>
-                        {pathname.split("/")[1]?.charAt(0).toUpperCase() + pathname.split("/")[1]?.slice(1) || ""}
-                      </BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </>
+                {pathSegments.length === 0 ? (
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Home</BreadcrumbPage>
+                  </BreadcrumbItem>
+                ) : (
+                  pathSegments.map((segment, index) => {
+                    const segmentPath = `/${pathSegments.slice(0, index + 1).join("/")}`;
+                    const isLastSegment = index === pathSegments.length - 1;
+                    
+                    return (
+                      <React.Fragment key={segment}>
+                        {index > 0 && <BreadcrumbSeparator />}
+                        <BreadcrumbItem>
+                          {isLastSegment ? (
+                            <BreadcrumbPage>{capitalize(segment)}</BreadcrumbPage>
+                          ) : (
+                            <BreadcrumbLink href={segmentPath}>{capitalize(segment)}</BreadcrumbLink>
+                          )}
+                        </BreadcrumbItem>
+                      </React.Fragment>
+                    );
+                  })
                 )}
               </BreadcrumbList>
             </nav>
