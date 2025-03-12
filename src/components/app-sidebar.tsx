@@ -54,7 +54,6 @@ const secondaryItems = [
 const userData = {
   name: "Bobby Jaffery",
   company: "CJ Insurance Group",
-  avatar: "/avatars/shadcn.jpg",
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

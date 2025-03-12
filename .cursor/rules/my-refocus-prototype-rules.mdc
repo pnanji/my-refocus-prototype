@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+# Your rule content
+
+	# Prototype First, Not Fully Functional
+	•	This is a prototype, so the goal is to simulate a real product experience rather than build a full backend system.
+	•	If real data storage isn’t available, use JSON files inside the project to mimic a database.
+	•	If an API doesn’t exist, mock responses instead of building a full backend.
+
+	# State & Error Simulation
+	•	To demonstrate different UI states (e.g., errors, loading, success), add UI toggles where needed.
+	•	The goal is to visualize how the app should behave in different conditions without requiring actual backend failures.
+	
+	# Use ShadCN + Tailwind by Default
+	•	Always prefer ShadCN UI components and Tailwind CSS for styling.
+	•	If a required component doesn’t exist in ShadCN, then and only then should a custom component be designed.
