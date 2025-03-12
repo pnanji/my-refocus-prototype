@@ -1,6 +1,7 @@
 "use client";
 
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { useConfig } from "@/components/config-panel";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -15,6 +16,8 @@ interface SettingsMenuItem {
 }
 
 export default function SettingsPage() {
+  const { showAmsConnectionError } = useConfig();
+  
   // Connections section items
   const connectionItems: SettingsMenuItem[] = [
     {
@@ -45,7 +48,7 @@ export default function SettingsPage() {
     },
     {
       title: "Filter Options",
-      description: "Select which types of policies to include in your analysis and prediction model",
+      description: "Select which types of policies to include in your at-risk prediction model",
       href: "/settings/filter-options",
       isNew: true,
     },
@@ -71,6 +74,11 @@ export default function SettingsPage() {
                       NEW
                     </span>
                   )}
+                  {item.title === "AMS360" && showAmsConnectionError && (
+                    <span className="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-sm font-medium">
+                      CONNECTION ISSUE
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-gray-500">{item.description}</p>
               </div>
@@ -89,7 +97,7 @@ export default function SettingsPage() {
         <div className="max-w-[640px] mx-auto px-4">
           {/* Connections Section */}
           <div className="mb-8">
-            <h2 className="text-lg font-medium text-gray-900 mb-3">Connections</h2>
+            <h2 className="text-base font-medium text-gray-900 mb-3">Connections</h2>
             <div className="bg-white border rounded-lg overflow-hidden">
               {connectionItems.map((item, index) => 
                 renderMenuItem(item, index === connectionItems.length - 1)
@@ -99,7 +107,7 @@ export default function SettingsPage() {
 
           {/* Preferences Section */}
           <div className="mb-8">
-            <h2 className="text-lg font-medium text-gray-900 mb-3">Preferences</h2>
+            <h2 className="text-base font-medium text-gray-900 mb-3">Preferences</h2>
             <div className="bg-white border rounded-lg overflow-hidden">
               {preferenceItems.map((item, index) => 
                 renderMenuItem(item, index === preferenceItems.length - 1)

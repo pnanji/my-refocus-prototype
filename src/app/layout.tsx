@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { ConfigProvider } from "@/components/config-panel";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ReFocus AI Prototype",
-  description: "Prototype for ReFocus AI",
+  title: "ReFocusAI Prototype",
+  description: "Prototype for ReFocusAI",
 };
 
 export default function RootLayout({
@@ -29,7 +30,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
-          {children}
+          <ConfigProvider>
+            {children}
+          </ConfigProvider>
         </SidebarProvider>
       </body>
     </html>
