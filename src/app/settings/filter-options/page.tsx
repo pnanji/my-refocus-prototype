@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { ChevronLeft, Info } from "lucide-react";
 import Link from "next/link";

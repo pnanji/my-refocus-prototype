@@ -27,9 +27,9 @@ export default function DataMappingSettings() {
   const [dateExpiresColumn, setDateExpiresColumn] = useState("date_expires");
   
   // Available options for policy status values - only human-readable options
-  const [availableOptions, setAvailableOptions] = useState([
+  const availableOptions = [
     "Active", "Cancelled", "Pending", "Expired", "Renewed", "Lapsed", "Terminated"
-  ]);
+  ];
   
   // Selected values for each category
   const [activePolicies, setActivePolicies] = useState<string[]>([]);
