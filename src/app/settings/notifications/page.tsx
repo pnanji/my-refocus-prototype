@@ -68,7 +68,6 @@ export default function NotificationsSettings() {
 
   // Get formatted date ranges for help text
   const personalDateRange = calculateDateRange(Number(personalDays) || 0);
-  const commercialDateRange = calculateDateRange(Number(commercialDays) || 0);
 
   // Generate appropriate alert message based on which values are reduced
   const getAlertMessage = () => {
