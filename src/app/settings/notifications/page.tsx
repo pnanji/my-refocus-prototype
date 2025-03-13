@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { ChevronLeft, Plus, AlertCircle } from "lucide-react";
+import { ChevronLeft, Plus } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -338,7 +338,7 @@ export default function NotificationsSettings() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="dont-notify" id="dont-notify" />
-                  <Label htmlFor="dont-notify" className="font-normal">Don't notify me in AMS360</Label>
+                  <Label htmlFor="dont-notify" className="font-normal">Don&apos;t notify me in AMS360</Label>
                 </div>
               </RadioGroup>
 

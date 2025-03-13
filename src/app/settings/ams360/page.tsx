@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { ChevronLeft, AlertTriangle, AlertCircle } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useConfig } from "@/components/config-panel";
 import { Input } from "@/components/ui/input";
@@ -98,7 +98,7 @@ export default function AMS360Settings() {
               {showAmsConnectionError && (
                 <Alert variant="error" className="bg-red-50 border border-red-200 rounded-lg mb-6">
                   <AlertDescription className="text-gray-900">
-                    We're having trouble authenticating. Please re-enter your details and try clicking <strong>Authenticate</strong> again or <Link href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" className="underline">contact our support team</Link> for assistance.
+                    We&apos;re having trouble authenticating. Please re-enter your details and try clicking <strong>Authenticate</strong> again or <Link href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" className="underline">contact our support team</Link> for assistance.
                   </AlertDescription>
                 </Alert>
               )}
@@ -204,7 +204,7 @@ export default function AMS360Settings() {
                   <AlertDialogHeader>
                     <AlertDialogTitle>Are you sure you want to disconnect AMS360?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      <strong>Warning:</strong> This action is permanent. All synced data will be deleted, and we can't predict at-risk renewals without a connected AMS.
+                      <strong>Warning:</strong> This action is permanent. All synced data will be deleted, and we can&apos;t predict at-risk renewals without a connected AMS.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>

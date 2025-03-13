@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState } from "react";
-import { Settings2, Minimize2, X } from "lucide-react";
+import { Settings2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Context to manage the configuration state
