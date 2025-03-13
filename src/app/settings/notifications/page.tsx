@@ -160,11 +160,6 @@ export default function NotificationsSettings() {
     setHasChanges(true);
   };
 
-  const handleAssigneeChange = (value: string) => {
-    setAssignee(value);
-    setHasChanges(true);
-  };
-
   const handleAddEmail = () => {
     setAdditionalEmails([...additionalEmails, ""]);
     setHasChanges(true);
@@ -236,7 +231,7 @@ export default function NotificationsSettings() {
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mt-3 mb-8">
-                e.g. This means on January 1st, you'll be notified of expirations from {personalDateRange.startFormatted} - {personalDateRange.endFormatted}.
+                e.g. This means on January 1st, you&apos;ll be notified of expirations from {personalDateRange.startFormatted} - {personalDateRange.endFormatted}.
               </p>
 
               {/* Commercial Section */}
