@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, CheckIcon, Loader } from "lucide-react";
 import Link from "next/link";
 import { useConfig } from "@/components/config-panel";
 import { Input } from "@/components/ui/input";
@@ -24,6 +24,8 @@ export default function AMS360Settings() {
   const { showAmsConnectionError } = useConfig();
   const [open, setOpen] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [originalFormData, setOriginalFormData] = useState({
     agencyNumber: "123456-1",
     agencyKey: "secretkey123",
@@ -53,7 +55,22 @@ export default function AMS360Settings() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Save connection details logic would go here
+    
+    // If in error state and trying to authenticate
+    if (showAmsConnectionError && !isAuthenticated) {
+      // Simulate authentication process
+      setIsAuthenticating(true);
+      
+      // Simulate API call with timeout
+      setTimeout(() => {
+        setIsAuthenticating(false);
+        setIsAuthenticated(true);
+      }, 1500);
+      
+      return;
+    }
+    
+    // Regular save logic
     alert("Connection details saved successfully!");
     setOriginalFormData({...formData});
     setHasChanges(false);
@@ -80,28 +97,33 @@ export default function AMS360Settings() {
           {/* Header with title and save button */}
           <div className="flex justify-between items-center mb-3">
             <h1 className="text-base font-medium text-gray-900">AMS360</h1>
-            <Button
-              type="button"
-              variant="default"
-              size="sm"
-              disabled={!hasChanges}
-              onClick={handleSubmit}
-            >
-              Save
-            </Button>
+            {/* Save button hidden for now */}
+            {false && (
+              <Button
+                type="button"
+                variant="default"
+                size="sm"
+                disabled={!hasChanges}
+                onClick={handleSubmit}
+              >
+                Save
+              </Button>
+            )}
           </div>
 
           {/* Form Card */}
           <div className="bg-white border rounded-lg overflow-hidden mb-6">
             <form onSubmit={handleSubmit} className="p-6">
-              {/* Authentication error alert - moved inside form container */}
-              {showAmsConnectionError && (
+              {/* Authentication error alert - only show when not authenticated */}
+              {showAmsConnectionError && !isAuthenticated && (
                 <Alert variant="error" className="bg-red-50 border border-red-200 rounded-lg mb-6">
                   <AlertDescription className="text-gray-900">
                     We&apos;re having trouble authenticating. Please re-enter your details and try clicking <strong>Authenticate</strong> again or <Link href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" className="underline">contact our support team</Link> for assistance.
                   </AlertDescription>
                 </Alert>
               )}
+              
+              {/* Removing the success alert as requested */}
             
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -115,7 +137,7 @@ export default function AMS360Settings() {
                     placeholder="XXXXXX-1"
                     value={formData.agencyNumber}
                     onChange={handleInputChange}
-                    disabled={!showAmsConnectionError}
+                    disabled={!showAmsConnectionError || isAuthenticated}
                     required
                   />
                 </div>
@@ -131,7 +153,7 @@ export default function AMS360Settings() {
                     placeholder="************"
                     value={formData.agencyKey}
                     onChange={handleInputChange}
-                    disabled={!showAmsConnectionError}
+                    disabled={!showAmsConnectionError || isAuthenticated}
                     required
                   />
                 </div>
@@ -147,7 +169,7 @@ export default function AMS360Settings() {
                     placeholder="REFOCUSALTPG"
                     value={formData.wsapiLoginId}
                     onChange={handleInputChange}
-                    disabled={!showAmsConnectionError}
+                    disabled={!showAmsConnectionError || isAuthenticated}
                     required
                   />
                 </div>
@@ -163,22 +185,43 @@ export default function AMS360Settings() {
                     placeholder="************"
                     value={formData.wsapiPassword}
                     onChange={handleInputChange}
-                    disabled={!showAmsConnectionError}
+                    disabled={!showAmsConnectionError || isAuthenticated}
                     required
                   />
                 </div>
               </div>
               
-              {/* Show Authenticate button only when in error state */}
+              {/* Show Authenticate button only when in error state and not authenticated */}
               {showAmsConnectionError && (
                 <div className="mt-6 flex justify-center">
-                  <Button
-                    type="submit"
-                    variant="secondary"
-                    size="sm"
-                  >
-                    Authenticate
-                  </Button>
+                  {!isAuthenticated ? (
+                    <Button
+                      type="submit"
+                      variant="secondary"
+                      size="sm"
+                      disabled={isAuthenticating}
+                    >
+                      {isAuthenticating ? (
+                        <>
+                          <Loader className="h-4 w-4 animate-spin" />
+                          Authenticating
+                        </>
+                      ) : (
+                        "Authenticate"
+                      )}
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="bg-green-50 text-green-700 border-green-200"
+                      disabled={true}
+                    >
+                      <CheckIcon className="h-4 w-4" />
+                      Authenticated
+                    </Button>
+                  )}
                 </div>
               )}
             </form>
