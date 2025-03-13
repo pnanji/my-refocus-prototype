@@ -74,16 +74,18 @@ export default function SettingsPage() {
                       NEW
                     </span>
                   )}
-                  {item.title === "AMS360" && showAmsConnectionError && (
-                    <span className="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-sm font-medium">
-                      CONNECTION ISSUE
-                    </span>
-                  )}
                 </div>
                 <p className="text-sm text-gray-500">{item.description}</p>
               </div>
             </div>
-            <ChevronRight className="text-gray-400 h-5 w-5" />
+            <div className="flex items-center gap-3">
+              {item.title === "AMS360" && showAmsConnectionError && (
+                <span className="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-sm font-medium">
+                  CONNECTION ISSUE
+                </span>
+              )}
+              <ChevronRight className="text-gray-400 h-5 w-5" />
+            </div>
           </div>
         </div>
         {!isLast && <div className="mx-6 border-b border-gray-200"></div>}
@@ -93,8 +95,8 @@ export default function SettingsPage() {
 
   return (
     <DashboardLayout>
-      <div className="bg-gray-50 min-h-screen py-6">
-        <div className="max-w-[640px] mx-auto px-4">
+      <div className="bg-gray-50 py-6">
+        <div className="max-w-[640px] mx-auto px-4 pb-10">
           {/* Connections Section */}
           <div className="mb-8">
             <h2 className="text-base font-medium text-gray-900 mb-3">Connections</h2>

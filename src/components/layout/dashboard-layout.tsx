@@ -25,10 +25,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
   
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex min-h-screen w-full">
       <AppSidebar />
       
-      <SidebarInset className="flex-1 p-6 bg-gray-50 text-foreground">
+      <SidebarInset className="flex-1 p-6 bg-gray-50 text-foreground overflow-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <SidebarTrigger className="cursor-pointer">
