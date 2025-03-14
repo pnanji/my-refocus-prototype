@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { LayoutDashboard, LifeBuoy, Lock, Settings, Users } from "lucide-react"
+import { LayoutDashboard, HelpCircle, Lock, Settings, Users } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
@@ -40,9 +40,9 @@ const navItems = [
 
 const secondaryItems = [
   {
-    title: "Support",
+    title: "Get Help",
     url: "https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6",
-    icon: LifeBuoy,
+    icon: HelpCircle,
   },
   {
     title: "Privacy",
