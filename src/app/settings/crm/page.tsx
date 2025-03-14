@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { ChevronLeft, CheckIcon, Loader, Copy } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -38,10 +39,6 @@ export default function CRMSettings() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Default to false
   const [showAuthenticatedButton, setShowAuthenticatedButton] = useState(false); // New state to control button visibility
-  const [originalFormData, setOriginalFormData] = useState({
-    username: "bobbyjaffery@cjinsurance.com",
-    password: "securepassword123",
-  });
   const [formData, setFormData] = useState({
     username: "bobbyjaffery@cjinsurance.com",
     password: "securepassword123",
@@ -67,13 +64,12 @@ export default function CRMSettings() {
   }, [showCrmConnectionError]);
   
   // Notification preferences
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [notificationType, setNotificationType] = useState("tasks");
   const [assignee, setAssignee] = useState("bobbyjaffery@cjinsurance.com");
   const [taskDueDate, setTaskDueDate] = useState("7 days from creation");
   
   // Email invitation
-  const [inviteEmail, setInviteEmail] = useState("cjinsurancegroup-agencyzoom-14543@refocusai.com");
+  const [inviteEmail] = useState("cjinsurancegroup-agencyzoom-14543@refocusai.com");
   const [copySuccess, setCopySuccess] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,10 +204,12 @@ export default function CRMSettings() {
                   <form onSubmit={handleSubmit} className="p-6">
                     {/* Agency Zoom Logo */}
                     <div className="flex justify-center mt-6 mb-10">
-                      <img 
+                      <Image 
                         src="/agencyzoom-logo.png" 
                         alt="Agency Zoom Logo" 
-                        className="h-12 object-contain"
+                        width={240}
+                        height={77}
+                        className="h-14 object-contain"
                       />
                     </div>
                     
@@ -274,10 +272,12 @@ export default function CRMSettings() {
                 <form onSubmit={handleSubmit} className="p-6">
                   {/* Agency Zoom Logo */}
                   <div className="flex justify-center mt-6 mb-10">
-                    <img 
+                    <Image 
                       src="/agencyzoom-logo.png" 
                       alt="Agency Zoom Logo" 
-                      className="h-12 object-contain"
+                      width={240}
+                      height={77}
+                      className="h-14 object-contain"
                     />
                   </div>
                   
