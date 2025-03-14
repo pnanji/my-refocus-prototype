@@ -27,7 +27,7 @@ export default function SettingsPage() {
       href: "/settings/ams360",
     },
     {
-      title: "CRM Connection",
+      title: "CRM",
       description: "Connect or edit a connection to a CRM",
       icon: "/person-card-icon.svg",
       href: "/settings/crm",

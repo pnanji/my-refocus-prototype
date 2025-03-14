@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function DataMappingSettings() {
   // State for policy status column
@@ -38,6 +39,9 @@ export default function DataMappingSettings() {
   
   // State for tracking form changes
   const [hasChanges, setHasChanges] = useState(false);
+  
+  // State for edit mode
+  const [editMode, setEditMode] = useState(false);
 
   // Get available options (excluding already selected values)
   const getAvailableOptions = () => {
@@ -113,6 +117,11 @@ export default function DataMappingSettings() {
     setHasChanges(true);
   };
 
+  // Toggle edit mode
+  const toggleEditMode = () => {
+    setEditMode(prev => !prev);
+  };
+
   // Initialize with some default selections
   useEffect(() => {
     setActivePolicies(["Active"]);
@@ -125,6 +134,7 @@ export default function DataMappingSettings() {
     // In a real implementation, this would save data to backend
     toast.success("Data mapping settings saved successfully");
     setHasChanges(false);
+    setEditMode(false); // Exit edit mode after saving
   };
 
   return (
@@ -146,12 +156,28 @@ export default function DataMappingSettings() {
               type="button"
               variant="default"
               size="sm"
-              disabled={!hasChanges}
+              disabled={!hasChanges || !editMode}
               onClick={handleSave}
             >
               Save
             </Button>
           </div>
+
+          {/* Warning Alert */}
+          <Alert variant="warning" className="mb-6">
+            <AlertTitle>Danger Zone</AlertTitle>
+            <AlertDescription className="flex items-center justify-between">
+              <span>Changes to data mapping could disrupt your at-risk prediction model. Only make changes if absolutely necessary.</span>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={toggleEditMode}
+                className="ml-2"
+              >
+                {editMode ? "Cancel" : "Edit"}
+              </Button>
+            </AlertDescription>
+          </Alert>
 
           {/* Policy Status Mapping */}
           <div className="bg-white border rounded-lg overflow-hidden mb-6">
@@ -163,7 +189,11 @@ export default function DataMappingSettings() {
               {/* Policy Status Column Selection */}
               <div className="mb-6">
                 <Label htmlFor="policy-status-column" className="mb-2">Which column shows policy status?</Label>
-                <Select value={policyStatusColumn} onValueChange={handlePolicyStatusColumnChange}>
+                <Select 
+                  value={policyStatusColumn} 
+                  onValueChange={handlePolicyStatusColumnChange}
+                  disabled={!editMode}
+                >
                   <SelectTrigger id="policy-status-column" className="w-full max-w-[300px]">
                     <SelectValue placeholder="Select column..." />
                   </SelectTrigger>
@@ -189,6 +219,7 @@ export default function DataMappingSettings() {
                       <Select 
                         value="" 
                         onValueChange={handleActiveSelect}
+                        disabled={!editMode}
                       >
                         <SelectTrigger id="active-policies" className="w-full bg-white">
                           <SelectValue placeholder="Add a value..." />
@@ -209,23 +240,26 @@ export default function DataMappingSettings() {
                             className="flex items-center justify-between bg-gray-300 rounded-md px-3 py-2 w-full"
                           >
                             <span className="text-sm">{value}</span>
-                            <button 
-                              onClick={() => removeActivePolicy(value)}
-                              className="text-gray-500 hover:text-gray-700"
-                            >
-                              <X className="h-4 w-4" />
-                            </button>
+                            {editMode && (
+                              <button 
+                                onClick={() => removeActivePolicy(value)}
+                                className="text-gray-500 hover:text-gray-700"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            )}
                           </div>
                         ))}
                       </div>
                     </div>
                     
-                    {/* Canceled Policies */}
+                    {/* Cancelled Policies */}
                     <div>
-                      <Label htmlFor="cancelled-policies" className="mb-2">Canceled Policies</Label>
+                      <Label htmlFor="cancelled-policies" className="mb-2">Cancelled Policies</Label>
                       <Select 
                         value="" 
                         onValueChange={handleCancelledSelect}
+                        disabled={!editMode}
                       >
                         <SelectTrigger id="cancelled-policies" className="w-full bg-white">
                           <SelectValue placeholder="Add a value..." />
@@ -246,12 +280,14 @@ export default function DataMappingSettings() {
                             className="flex items-center justify-between bg-gray-300 rounded-md px-3 py-2 w-full"
                           >
                             <span className="text-sm">{value}</span>
-                            <button 
-                              onClick={() => removeCancelledPolicy(value)}
-                              className="text-gray-500 hover:text-gray-700"
-                            >
-                              <X className="h-4 w-4" />
-                            </button>
+                            {editMode && (
+                              <button 
+                                onClick={() => removeCancelledPolicy(value)}
+                                className="text-gray-500 hover:text-gray-700"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -263,6 +299,7 @@ export default function DataMappingSettings() {
                       <Select 
                         value="" 
                         onValueChange={handleOtherSelect}
+                        disabled={!editMode}
                       >
                         <SelectTrigger id="other-statuses" className="w-full bg-white">
                           <SelectValue placeholder="Add a value..." />
@@ -283,12 +320,14 @@ export default function DataMappingSettings() {
                             className="flex items-center justify-between bg-gray-300 rounded-md px-3 py-2 w-full"
                           >
                             <span className="text-sm">{value}</span>
-                            <button 
-                              onClick={() => removeOtherPolicyStatus(value)}
-                              className="text-gray-500 hover:text-gray-700"
-                            >
-                              <X className="h-4 w-4" />
-                            </button>
+                            {editMode && (
+                              <button 
+                                onClick={() => removeOtherPolicyStatus(value)}
+                                className="text-gray-500 hover:text-gray-700"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -309,7 +348,11 @@ export default function DataMappingSettings() {
               {/* Policy Type */}
               <div className="mb-6">
                 <Label htmlFor="policy-type" className="mb-2">Policy Type</Label>
-                <Select value={policyTypeColumn} onValueChange={handlePolicyTypeColumnChange}>
+                <Select 
+                  value={policyTypeColumn} 
+                  onValueChange={handlePolicyTypeColumnChange}
+                  disabled={!editMode}
+                >
                   <SelectTrigger id="policy-type" className="w-full max-w-[300px]">
                     <SelectValue placeholder="Select column..." />
                   </SelectTrigger>
@@ -324,7 +367,11 @@ export default function DataMappingSettings() {
               {/* Line of Business */}
               <div className="mb-6">
                 <Label htmlFor="business-line" className="mb-2">Line of Business</Label>
-                <Select value={businessLineColumn} onValueChange={handleBusinessLineColumnChange}>
+                <Select 
+                  value={businessLineColumn} 
+                  onValueChange={handleBusinessLineColumnChange}
+                  disabled={!editMode}
+                >
                   <SelectTrigger id="business-line" className="w-full max-w-[300px]">
                     <SelectValue placeholder="Select column..." />
                   </SelectTrigger>
@@ -339,7 +386,11 @@ export default function DataMappingSettings() {
               {/* First Written Date */}
               <div className="mb-6">
                 <Label htmlFor="date-written" className="mb-2">First Written Date</Label>
-                <Select value={dateWrittenColumn} onValueChange={handleDateWrittenColumnChange}>
+                <Select 
+                  value={dateWrittenColumn} 
+                  onValueChange={handleDateWrittenColumnChange}
+                  disabled={!editMode}
+                >
                   <SelectTrigger id="date-written" className="w-full max-w-[300px]">
                     <SelectValue placeholder="Select column..." />
                   </SelectTrigger>
@@ -354,7 +405,11 @@ export default function DataMappingSettings() {
               {/* Expiration Date */}
               <div>
                 <Label htmlFor="date-expires" className="mb-2">Expiration Date</Label>
-                <Select value={dateExpiresColumn} onValueChange={handleDateExpiresColumnChange}>
+                <Select 
+                  value={dateExpiresColumn} 
+                  onValueChange={handleDateExpiresColumnChange}
+                  disabled={!editMode}
+                >
                   <SelectTrigger id="date-expires" className="w-full max-w-[300px]">
                     <SelectValue placeholder="Select column..." />
                   </SelectTrigger>

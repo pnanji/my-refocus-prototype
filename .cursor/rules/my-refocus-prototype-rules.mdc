@@ -1,5 +1,5 @@
 ---
-description: 
+description: Always look at these rules and follow closely 
 globs: 
 alwaysApply: false
 ---
@@ -17,4 +17,4 @@ alwaysApply: false
 	
 	# Use ShadCN + Tailwind by Default
 	•	Always prefer ShadCN UI components and Tailwind CSS for styling.
-	•	If a required component doesn’t exist in ShadCN, then and only then should a custom component be designed.
+	•	If a required component doesn’t exist in ShadCN, then and only then should a custom component be designed. But look at my existing shadcn components and use those first and if I don't have a component you need but you know exists for shadcn, suggest that I add that to my project so you can use it. 

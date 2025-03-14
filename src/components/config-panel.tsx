@@ -9,20 +9,29 @@ import { cn } from "@/lib/utils";
 interface ConfigContextType {
   showAmsConnectionError: boolean;
   toggleAmsConnectionError: () => void;
+  showCrmConnectionError: boolean;
+  toggleCrmConnectionError: () => void;
 }
 
 const ConfigContext = React.createContext<ConfigContextType>({
   showAmsConnectionError: false,
   toggleAmsConnectionError: () => {},
+  showCrmConnectionError: false,
+  toggleCrmConnectionError: () => {},
 });
 
 export const useConfig = () => React.useContext(ConfigContext);
 
 export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [showAmsConnectionError, setShowAmsConnectionError] = useState(false);
+  const [showCrmConnectionError, setShowCrmConnectionError] = useState(false);
   
   const toggleAmsConnectionError = () => {
     setShowAmsConnectionError((prev) => !prev);
+  };
+  
+  const toggleCrmConnectionError = () => {
+    setShowCrmConnectionError((prev) => !prev);
   };
   
   return (
@@ -30,6 +39,8 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
       value={{
         showAmsConnectionError,
         toggleAmsConnectionError,
+        showCrmConnectionError,
+        toggleCrmConnectionError,
       }}
     >
       {children}
@@ -40,7 +51,12 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
 
 export function ConfigPanel() {
   const [isOpen, setIsOpen] = useState(false);
-  const { showAmsConnectionError, toggleAmsConnectionError } = useConfig();
+  const { 
+    showAmsConnectionError, 
+    toggleAmsConnectionError,
+    showCrmConnectionError,
+    toggleCrmConnectionError
+  } = useConfig();
   
   return (
     <div className="fixed top-4 right-4 z-50">
@@ -67,6 +83,25 @@ export function ConfigPanel() {
                     className={cn(
                       "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
                       showAmsConnectionError ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+              
+              <label className="flex items-center justify-between">
+                <span className="text-sm">CRM Connection Error</span>
+                <div
+                  onClick={toggleCrmConnectionError}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    showCrmConnectionError ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      showCrmConnectionError ? "translate-x-4" : "translate-x-0.5"
                     )}
                     style={{ margin: "2px 0" }}
                   />

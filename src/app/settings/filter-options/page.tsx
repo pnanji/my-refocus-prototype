@@ -92,7 +92,7 @@ export default function FilterOptionsSettings() {
           </div>
           
           {/* Header with title and save button */}
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-3">
             <h1 className="text-base font-medium text-foreground">Filter Options</h1>
             <Button
               type="button"
@@ -187,7 +187,7 @@ export default function FilterOptionsSettings() {
                               {option.label}
                             </Label>
                             {option.isNew && (
-                              <span className="ml-2 bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded-sm font-medium">
+                              <span className="ml-2 bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-sm font-medium">
                                 NEW
                               </span>
                             )}

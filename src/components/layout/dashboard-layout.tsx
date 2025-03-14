@@ -24,6 +24,17 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   // Function to capitalize the first letter of a string
   const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
   
+  // Function to format segment text for display
+  const formatSegmentText = (segment: string) => {
+    if (segment.toLowerCase() === 'crm') {
+      return 'CRM';
+    }
+    if (segment.toLowerCase() === 'ams360') {
+      return 'AMS360';
+    }
+    return capitalize(segment);
+  };
+  
   return (
     <div className="flex min-h-screen w-full">
       <AppSidebar />
@@ -53,9 +64,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                         {index > 0 && <BreadcrumbSeparator />}
                         <BreadcrumbItem>
                           {isLastSegment ? (
-                            <BreadcrumbPage>{capitalize(segment)}</BreadcrumbPage>
+                            <BreadcrumbPage>{formatSegmentText(segment)}</BreadcrumbPage>
                           ) : (
-                            <BreadcrumbLink href={segmentPath}>{capitalize(segment)}</BreadcrumbLink>
+                            <BreadcrumbLink href={segmentPath}>{formatSegmentText(segment)}</BreadcrumbLink>
                           )}
                         </BreadcrumbItem>
                       </React.Fragment>

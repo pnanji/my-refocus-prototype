@@ -230,7 +230,7 @@ export default function AMS360Settings() {
           {/* Disconnect Card */}
           <div className="bg-white border rounded-lg overflow-hidden">
             <div className="p-6">
-              <p className="text-sm/6 text-gray-500 mb-4">
+              <p className="text-sm/6 text-muted-foreground mb-4">
                 Disconnecting from AMS360 will prevent ReFocusAI from receiving policy data updates. 
                 This will affect your client list and predictions.
               </p>
