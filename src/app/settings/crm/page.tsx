@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { ChevronLeft, CheckIcon, Loader, Copy } from "lucide-react";
+import { ChevronLeft, CheckIcon, Loader, Copy, Info } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
@@ -162,7 +162,7 @@ export default function CRMSettings() {
           
           {/* Header with title and save button */}
           <div className="flex justify-between items-center mb-3">
-            <h1 className="text-base font-medium text-gray-900">CRM Connection</h1>
+            <h1 className="text-base font-medium text-gray-900">CRM</h1>
             {!isDisconnected && (
               <Button
                 type="button"
@@ -451,6 +451,15 @@ export default function CRMSettings() {
                       </div>
                     )}
                   </div>
+                  
+                  {notificationType === "tasks" && (
+                    <Alert variant="default" className="mt-6 bg-gray-50 border-gray-200">
+                      <Info className="h-5 w-5 text-gray-500" />
+                      <AlertDescription>
+                        All tasks added by ReFocus in AgencyZoom will include the tag <span className="font-medium whitespace-nowrap">rf-cancel-risk</span> for easy filtering and tracking of our recommendations.
+                      </AlertDescription>
+                    </Alert>
+                  )}
                 </div>
               </div>
               
@@ -488,30 +497,32 @@ export default function CRMSettings() {
                   <p className="text-sm/6 text-muted-foreground mb-4">
                     Disconnecting from AgencyZoom will prevent ReFocus from sending notifications to your CRM.
                   </p>
-                  <AlertDialog open={open} onOpenChange={setOpen}>
-                    <AlertDialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="text-red-600"
-                      >
-                        Disconnect AgencyZoom
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>Are you sure you want to disconnect AgencyZoom?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          <strong>Warning:</strong> This action will remove the connection between ReFocusAI and your CRM. You will no longer receive notifications about at-risk renewals in AgencyZoom.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleDisconnect} variant="destructive">
-                          Disconnect
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                  <div className="flex justify-center">
+                    <AlertDialog open={open} onOpenChange={setOpen}>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="text-red-600"
+                        >
+                          Disconnect AgencyZoom
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure you want to disconnect AgencyZoom?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            <strong>Warning:</strong> This action will remove the connection between ReFocusAI and your CRM. You will no longer receive notifications about at-risk renewals in AgencyZoom.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleDisconnect} variant="destructive">
+                            Disconnect
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
                 </div>
               </div>
             </>

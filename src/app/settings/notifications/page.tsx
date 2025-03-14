@@ -309,7 +309,7 @@ export default function NotificationsSettings() {
             </div>
           </div>
 
-          {/* AMS360 Notification Preferences */}
+          {/* AMS Notification Preferences */}
           <div className="bg-white border rounded-lg overflow-hidden mb-6">
             <div className="p-6">
               <h2 className="text-sm font-medium text-foreground mb-4">

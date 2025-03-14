@@ -16,19 +16,19 @@ interface SettingsMenuItem {
 }
 
 export default function SettingsPage() {
-  const { showAmsConnectionError } = useConfig();
+  const { showAmsConnectionError, showCrmConnectionError } = useConfig();
   
   // Connections section items
   const connectionItems: SettingsMenuItem[] = [
     {
-      title: "AMS360",
-      description: "Manage your connection to AMS360",
+      title: "AMS",
+      description: "Manage connection to your AMS",
       icon: "/AMS360-logo.png",
-      href: "/settings/ams360",
+      href: "/settings/ams",
     },
     {
       title: "CRM",
-      description: "Connect or edit a connection to a CRM",
+      description: "Manage connection and notifications to a CRM",
       icon: "/person-card-icon.svg",
       href: "/settings/crm",
     },
@@ -78,9 +78,14 @@ export default function SettingsPage() {
                 <p className="text-sm text-gray-500">{item.description}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              {item.title === "AMS360" && showAmsConnectionError && (
-                <span className="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-sm font-medium">
+            <div className="flex items-center gap-3 shrink-0">
+              {item.title === "AMS" && showAmsConnectionError && (
+                <span className="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-sm font-medium whitespace-nowrap">
+                  CONNECTION ISSUE
+                </span>
+              )}
+              {item.title === "CRM" && showCrmConnectionError && (
+                <span className="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-sm font-medium whitespace-nowrap">
                   CONNECTION ISSUE
                 </span>
               )}

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { ChevronLeft, CheckIcon, Loader } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useConfig } from "@/components/config-panel";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export default function AMS360Settings() {
+export default function AMSSettings() {
   const { showAmsConnectionError } = useConfig();
   const [open, setOpen] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
@@ -78,7 +79,7 @@ export default function AMS360Settings() {
 
   const handleDisconnect = () => {
     // Disconnect logic would go here
-    alert("AMS360 disconnected successfully");
+    alert("AMS disconnected successfully");
     setOpen(false);
   };
 
@@ -96,7 +97,7 @@ export default function AMS360Settings() {
           
           {/* Header with title and save button */}
           <div className="flex justify-between items-center mb-3">
-            <h1 className="text-base font-medium text-gray-900">AMS360</h1>
+            <h1 className="text-base font-medium text-gray-900">AMS</h1>
             {/* Save button hidden for now */}
             {false && (
               <Button
@@ -114,6 +115,17 @@ export default function AMS360Settings() {
           {/* Form Card */}
           <div className="bg-white border rounded-lg overflow-hidden mb-6">
             <form onSubmit={handleSubmit} className="p-6">
+              {/* AMS Logo */}
+              <div className="flex justify-center mt-6 mb-10">
+                <Image 
+                  src="/ams360-logo-large.png" 
+                  alt="AMS Logo" 
+                  width={300}
+                  height={96}
+                  className="h-16 object-contain"
+                />
+              </div>
+              
               {/* Authentication error alert - only show when not authenticated */}
               {showAmsConnectionError && !isAuthenticated && (
                 <Alert variant="error" className="bg-red-50 border border-red-200 rounded-lg mb-6">
@@ -203,7 +215,7 @@ export default function AMS360Settings() {
                     >
                       {isAuthenticating ? (
                         <>
-                          <Loader className="h-4 w-4 animate-spin" />
+                          <Loader className="h-4 w-4 animate-spin mr-2" />
                           Authenticating
                         </>
                       ) : (
@@ -218,7 +230,7 @@ export default function AMS360Settings() {
                       className="bg-green-50 text-green-700 border-green-200"
                       disabled={true}
                     >
-                      <CheckIcon className="h-4 w-4" />
+                      <CheckIcon className="h-4 w-4 mr-2" />
                       Authenticated
                     </Button>
                   )}
@@ -231,33 +243,35 @@ export default function AMS360Settings() {
           <div className="bg-white border rounded-lg overflow-hidden">
             <div className="p-6">
               <p className="text-sm/6 text-muted-foreground mb-4">
-                Disconnecting from AMS360 will prevent ReFocusAI from receiving policy data updates. 
+                Disconnecting from your AMS will prevent ReFocusAI from receiving policy data updates. 
                 This will affect your client list and predictions.
               </p>
-              <AlertDialog open={open} onOpenChange={setOpen}>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="text-red-600"
-                  >
-                    Disconnect AMS360
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure you want to disconnect AMS360?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      <strong>Warning:</strong> This action is permanent. All synced data will be deleted, and we can&apos;t predict at-risk renewals without a connected AMS.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDisconnect} variant="destructive">
-                      Disconnect
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+              <div className="flex justify-center">
+                <AlertDialog open={open} onOpenChange={setOpen}>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="text-red-600"
+                    >
+                      Disconnect AMS360
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you sure you want to disconnect from AMS360?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        <strong>Warning:</strong> This action is permanent. All synced data will be deleted, and we can&apos;t predict at-risk renewals without a connected AMS.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleDisconnect} variant="destructive">
+                        Disconnect
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
             </div>
           </div>
 

@@ -29,8 +29,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     if (segment.toLowerCase() === 'crm') {
       return 'CRM';
     }
-    if (segment.toLowerCase() === 'ams360') {
-      return 'AMS360';
+    if (segment.toLowerCase() === 'ams' || segment.toLowerCase() === 'ams360') {
+      return 'AMS';
     }
     return capitalize(segment);
   };
