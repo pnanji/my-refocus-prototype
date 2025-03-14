@@ -41,7 +41,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               <BreadcrumbList>
                 {pathSegments.length === 0 ? (
                   <BreadcrumbItem>
-                    <BreadcrumbPage>Home</BreadcrumbPage>
+                    <BreadcrumbPage>Dashboard</BreadcrumbPage>
                   </BreadcrumbItem>
                 ) : (
                   pathSegments.map((segment, index) => {

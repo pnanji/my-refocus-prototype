@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Home, LifeBuoy, Lock, Settings, Users } from "lucide-react"
+import { LayoutDashboard, LifeBuoy, Lock, Settings, Users } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
@@ -22,9 +22,9 @@ import {
 
 const navItems = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "/",
-    icon: Home,
+    icon: LayoutDashboard,
   },
   {
     title: "Clients",

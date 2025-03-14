@@ -22,7 +22,7 @@ type RiskData = {
   premium: number;
 };
 
-export default function Home() {
+export default function Dashboard() {
   const router = useRouter();
   const [sorting, setSorting] = React.useState({ column: 'name', direction: 'asc' });
   const [selectedRows, setSelectedRows] = React.useState<string[]>([]);

@@ -35,7 +35,7 @@ export default function FilterOptionsSettings() {
   // Line of Business options
   const [lineOfBusinessOptions, setLineOfBusinessOptions] = useState<FilterOption[]>([
     { id: "auto", label: "Auto", checked: true, isNew: true },
-    { id: "home", label: "Home", checked: true },
+    { id: "home", label: "Dashboard", checked: true },
     { id: "earthquake", label: "Earthquake", checked: true },
     { id: "etc", label: "Etc.", checked: true },
   ]);

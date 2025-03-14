@@ -107,7 +107,7 @@ export default function ClientPage() {
         <div className="flex flex-col items-center justify-center h-full">
           <h1 className="text-2xl font-semibold">Client not found</h1>
           <Button className="mt-4" onClick={() => router.push('/')}>
-            Return to Home
+            Return to Dashboard
           </Button>
         </div>
       </DashboardLayout>
