@@ -206,6 +206,144 @@
     ]
   },
   {
+    "id": "a2",
+    "clientId": "2",
+    "vehicles": [
+      {
+        "year": 2018,
+        "make": "Honda",
+        "model": "Accord",
+        "trim": "EX"
+      }
+    ],
+    "carriers": [
+      {
+        "id": "c1",
+        "name": "Frontline",
+        "premium": 845,
+        "term": "6-month",
+        "coverages": [
+          {
+            "type": "Bodily Injury Liability",
+            "limit": "50k / 100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Property Damage Liability",
+            "limit": "50k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": "1,000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Uninsured/Underinsured Motorist",
+            "limit": "50k / 100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Comprehensive",
+            "limit": "-",
+            "option": "-",
+            "deductible": "500"
+          },
+          {
+            "type": "Collision",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1,000"
+          },
+          {
+            "type": "Towing",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Transport Exp. / Rental Reimburs.",
+            "limit": "-",
+            "option": "-",
+            "deductible": "30 / 900"
+          },
+          {
+            "type": "Full Glass",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "name": "Progressive",
+        "premium": 712,
+        "term": "6-month",
+        "coverages": [
+          {
+            "type": "Bodily Injury Liability",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Property Damage Liability",
+            "limit": "50k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": "1,000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Uninsured/Underinsured Motorist",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Comprehensive",
+            "limit": "-",
+            "option": "-",
+            "deductible": "500"
+          },
+          {
+            "type": "Collision",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1,000"
+          },
+          {
+            "type": "Towing",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Transport Exp. / Rental Reimburs.",
+            "limit": "-",
+            "option": "-",
+            "deductible": "30 / 900"
+          },
+          {
+            "type": "Full Glass",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "a3",
     "clientId": "3",
     "vehicles": [
@@ -400,6 +538,350 @@
             "limit": "-",
             "option": "-",
             "deductible": "40 / 1200"
+          },
+          {
+            "type": "Full Glass",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "a4",
+    "clientId": "4",
+    "vehicles": [
+      {
+        "year": 2020,
+        "make": "Toyota",
+        "model": "Camry",
+        "trim": "SE"
+      },
+      {
+        "year": 2017,
+        "make": "Subaru",
+        "model": "Outback",
+        "trim": "Premium"
+      }
+    ],
+    "carriers": [
+      {
+        "id": "c1",
+        "name": "Frontline",
+        "premium": 1025,
+        "term": "6-month",
+        "coverages": [
+          {
+            "type": "Bodily Injury Liability",
+            "limit": "50k / 100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Property Damage Liability",
+            "limit": "50k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": "1,000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Uninsured/Underinsured Motorist",
+            "limit": "50k / 100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Comprehensive",
+            "limit": "-",
+            "option": "-",
+            "deductible": "500"
+          },
+          {
+            "type": "Collision",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1,000"
+          },
+          {
+            "type": "Towing",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Transport Exp. / Rental Reimburs.",
+            "limit": "-",
+            "option": "-",
+            "deductible": "30 / 900"
+          },
+          {
+            "type": "Full Glass",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "name": "Progressive",
+        "premium": 932,
+        "term": "6-month",
+        "coverages": [
+          {
+            "type": "Bodily Injury Liability",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Property Damage Liability",
+            "limit": "50k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": "1,000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Uninsured/Underinsured Motorist",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Comprehensive",
+            "limit": "-",
+            "option": "-",
+            "deductible": "500"
+          },
+          {
+            "type": "Collision",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1,000"
+          },
+          {
+            "type": "Towing",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Transport Exp. / Rental Reimburs.",
+            "limit": "-",
+            "option": "-",
+            "deductible": "30 / 900"
+          },
+          {
+            "type": "Full Glass",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "name": "Citizens",
+        "premium": 1078,
+        "term": "6-month",
+        "coverages": [
+          {
+            "type": "Bodily Injury Liability",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Property Damage Liability",
+            "limit": "50k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": "1,000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Uninsured/Underinsured Motorist",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Comprehensive",
+            "limit": "-",
+            "option": "-",
+            "deductible": "500"
+          },
+          {
+            "type": "Collision",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1,000"
+          },
+          {
+            "type": "Towing",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Transport Exp. / Rental Reimburs.",
+            "limit": "-",
+            "option": "-",
+            "deductible": "30 / 900"
+          },
+          {
+            "type": "Full Glass",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "a5",
+    "clientId": "5",
+    "vehicles": [
+      {
+        "year": 2019,
+        "make": "Mazda",
+        "model": "CX-5",
+        "trim": "Grand Touring"
+      }
+    ],
+    "carriers": [
+      {
+        "id": "c1",
+        "name": "Frontline",
+        "premium": 876,
+        "term": "6-month",
+        "coverages": [
+          {
+            "type": "Bodily Injury Liability",
+            "limit": "50k / 100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Property Damage Liability",
+            "limit": "50k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": "1,000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Uninsured/Underinsured Motorist",
+            "limit": "50k / 100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Comprehensive",
+            "limit": "-",
+            "option": "-",
+            "deductible": "500"
+          },
+          {
+            "type": "Collision",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1,000"
+          },
+          {
+            "type": "Towing",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Transport Exp. / Rental Reimburs.",
+            "limit": "-",
+            "option": "-",
+            "deductible": "30 / 900"
+          },
+          {
+            "type": "Full Glass",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "name": "Progressive",
+        "premium": 798,
+        "term": "6-month",
+        "coverages": [
+          {
+            "type": "Bodily Injury Liability",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Property Damage Liability",
+            "limit": "50k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Medical Payments",
+            "limit": "1,000",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Uninsured/Underinsured Motorist",
+            "limit": "50k/100k",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Comprehensive",
+            "limit": "-",
+            "option": "-",
+            "deductible": "500"
+          },
+          {
+            "type": "Collision",
+            "limit": "-",
+            "option": "-",
+            "deductible": "1,000"
+          },
+          {
+            "type": "Towing",
+            "limit": "-",
+            "option": "-",
+            "deductible": "-"
+          },
+          {
+            "type": "Transport Exp. / Rental Reimburs.",
+            "limit": "-",
+            "option": "-",
+            "deductible": "30 / 900"
           },
           {
             "type": "Full Glass",
