@@ -10,6 +10,8 @@ import { ArrowUpDown, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { getClients } from "@/lib/data";
+import { useConfig } from "@/components/config-panel";
+import { OnboardingView } from "@/components/onboarding-view";
 
 // Define the type for our data
 type RiskData = {
@@ -24,8 +26,14 @@ type RiskData = {
 
 export default function Dashboard() {
   const router = useRouter();
+  const { showOnboarding } = useConfig();
   const [sorting, setSorting] = React.useState({ column: 'name', direction: 'asc' });
   const [selectedRows, setSelectedRows] = React.useState<string[]>([]);
+
+  // If onboarding is enabled, show the onboarding view
+  if (showOnboarding) {
+    return <OnboardingView />;
+  }
 
   // Get clients data
   const clientsData = getClients();

@@ -1,7 +1,7 @@
 ---
-description: Always look at these rules and follow closely 
+description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Your rule content
@@ -12,7 +12,7 @@ alwaysApply: false
 	•	If an API doesn’t exist, mock responses instead of building a full backend.
 
 	# State & Error Simulation
-	•	To demonstrate different UI states (e.g., errors, loading, success), add UI toggles where needed.
+	•	To demonstrate different UI states (e.g., errors, loading, success), add UI toggles where needed in the configuration panel.
 	•	The goal is to visualize how the app should behave in different conditions without requiring actual backend failures.
 	
 	# Use ShadCN + Tailwind by Default
