@@ -69,7 +69,7 @@ export default function CRMSettings() {
   const [taskDueDate, setTaskDueDate] = useState("7 days from creation");
   
   // Email invitation
-  const [inviteEmail] = useState("cjinsurancegroup-agencyzoom-14543@refocusai.com");
+  const [inviteEmail] = useState("cjinsurancegroup@refocusai.com");
   const [copySuccess, setCopySuccess] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
