@@ -9,7 +9,7 @@ import { CheckCircle } from "lucide-react";
 import { CarrierManagement } from "@/components/carrier-management";
 
 export function OnboardingView() {
-  const { onboardingStep, setOnboardingStep, selectedAms, setSelectedAms } = useConfig();
+  const { onboardingStep, setOnboardingStep, setSelectedAms } = useConfig();
 
   const handleGetStarted = () => {
     setOnboardingStep('select-ams');
@@ -74,7 +74,7 @@ function WelcomeView({ onGetStarted }: { onGetStarted: () => void }) {
         <p className="text-sm text-foreground">
           Click <span className="font-medium text-foreground">Get Started</span> to link your AMS and unlock powerful retention insights.
           <br />
-          Once completed, we'll help you enable automated requoting for effortless renewals.
+          Once completed, we&apos;ll help you enable automated requoting for effortless renewals.
         </p>
       </div>
 
@@ -292,9 +292,9 @@ function CompletedFirstStepView({ onStartRequoting }: { onStartRequoting: () => 
       
       <div className="mb-8 text-center">
         <p className="text-sm text-foreground">
-          Congratulations! You've successfully connected your AMS.
+          Congratulations! You&apos;ve successfully connected your AMS.
           <br />
-          Now you're ready to set up Automated Requoting to streamline your renewal process.
+          Now you&apos;re ready to set up Automated Requoting to streamline your renewal process.
         </p>
       </div>
 

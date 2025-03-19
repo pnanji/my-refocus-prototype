@@ -16,7 +16,6 @@ import { useConfig } from "./config-panel";
 import { Carrier, CarrierGroup } from "@/lib/carriers";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
 
 // Simulated list of all available carriers for search
 const allAvailableCarriers: Carrier[] = [

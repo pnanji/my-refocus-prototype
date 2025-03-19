@@ -93,8 +93,6 @@ export function ConfigPanel() {
     toggleOnboarding,
     onboardingStep,
     setOnboardingStep,
-    selectedAms,
-    setSelectedAms
   } = useConfig();
   
   return (
