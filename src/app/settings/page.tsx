@@ -16,7 +16,7 @@ interface SettingsMenuItem {
 }
 
 export default function SettingsPage() {
-  const { showAmsConnectionError, showCrmConnectionError } = useConfig();
+  const { showAmsConnectionError, showCrmConnectionError, isAggregator } = useConfig();
   
   // Connections section items
   const connectionItems: SettingsMenuItem[] = [
@@ -51,6 +51,22 @@ export default function SettingsPage() {
       description: "Select which types of policies to include in your at-risk prediction model",
       href: "/settings/filter-options",
       isNew: true,
+    },
+  ];
+
+  // Organization section items
+  const organizationItems: SettingsMenuItem[] = [
+    ...(isAggregator ? [
+      {
+        title: "Agency Management",
+        description: "Manage agencies and their feature access",
+        href: "/settings/agencies",
+      }
+    ] : []),
+    {
+      title: "User Management",
+      description: "Manage users and their roles within your agency",
+      href: "/settings/users",
     },
   ];
 
@@ -108,6 +124,16 @@ export default function SettingsPage() {
             <div className="bg-white border rounded-lg overflow-hidden">
               {connectionItems.map((item, index) => 
                 renderMenuItem(item, index === connectionItems.length - 1)
+              )}
+            </div>
+          </div>
+
+          {/* Organization Section */}
+          <div className="mb-8">
+            <h2 className="text-base font-medium text-gray-900 mb-3">Organization</h2>
+            <div className="bg-white border rounded-lg overflow-hidden">
+              {organizationItems.map((item, index) => 
+                renderMenuItem(item, index === organizationItems.length - 1)
               )}
             </div>
           </div>

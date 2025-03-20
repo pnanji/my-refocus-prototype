@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { ChevronLeft, CheckIcon, Loader } from "lucide-react";
+import { CheckIcon, Loader } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useConfig } from "@/components/config-panel";
@@ -86,18 +86,15 @@ export default function AMSSettings() {
   return (
     <DashboardLayout>
       <div className="bg-gray-50 py-6">
-        <div className="max-w-[640px] mx-auto px-4 pb-10">
-          {/* Back button */}
-          <div className="mb-4">
-            <Link href="/settings" className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
-              <ChevronLeft className="h-4 w-4 mr-1" />
-              Settings
-            </Link>
-          </div>
-          
+        <div className="max-w-[640px] mx-auto px-4 pb-10">          
           {/* Header with title and save button */}
-          <div className="flex justify-between items-center mb-3">
-            <h1 className="text-base font-medium text-gray-900">AMS</h1>
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-base font-medium text-gray-900">AMS</h1>
+              <p className="text-sm text-gray-500">
+                Manage connection to your AMS
+              </p>
+            </div>
             {/* Save button hidden for now */}
             {false && (
               <Button

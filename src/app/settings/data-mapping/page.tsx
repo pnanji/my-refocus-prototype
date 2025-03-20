@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { ChevronLeft, X } from "lucide-react";
+import { X } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -141,17 +141,14 @@ export default function DataMappingSettings() {
     <DashboardLayout>
       <div className="bg-gray-50 py-6">
         <div className="max-w-[780px] mx-auto px-4 pb-10">
-          {/* Back button */}
-          <div className="mb-4">
-            <Link href="/settings" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
-              <ChevronLeft className="h-4 w-4 mr-1" />
-              Settings
-            </Link>
-          </div>
-          
           {/* Header with title and save button */}
-          <div className="flex justify-between items-center mb-3">
-            <h1 className="text-base font-medium text-foreground">Data Mapping</h1>
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-base font-medium text-gray-900">Data Mapping</h1>
+              <p className="text-sm text-gray-500">
+                Map your AMS data to our standard categories
+              </p>
+            </div>
             <Button
               type="button"
               variant="default"

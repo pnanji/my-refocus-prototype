@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
@@ -69,7 +70,8 @@ const getCarrierLogo = (carrierName: string) => {
 export default function ClientPage() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const clientId = params.id as string;
+  // Using the id directly but with clear intent that we know it's a string
+  const clientId = String(params.id);
   const router = useRouter();
   
   // Get the tab from URL or default to 'summary'

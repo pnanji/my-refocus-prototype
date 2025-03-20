@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Settings2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CarrierGroups, sampleCarriers } from "@/lib/carriers";
@@ -20,6 +20,8 @@ interface ConfigContextType {
   setSelectedAms: (ams: string | null) => void;
   carrierGroups: CarrierGroups;
   setCarrierGroups: React.Dispatch<React.SetStateAction<CarrierGroups>>;
+  isAggregator: boolean;
+  toggleIsAggregator: () => void;
 }
 
 const ConfigContext = React.createContext<ConfigContextType>({
@@ -35,6 +37,8 @@ const ConfigContext = React.createContext<ConfigContextType>({
   setSelectedAms: () => {},
   carrierGroups: sampleCarriers,
   setCarrierGroups: () => {},
+  isAggregator: false,
+  toggleIsAggregator: () => {},
 });
 
 export const useConfig = () => React.useContext(ConfigContext);
@@ -47,6 +51,17 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [selectedAms, setSelectedAms] = useState<string | null>(null);
   const [carrierGroups, setCarrierGroups] = useState<CarrierGroups>(sampleCarriers);
   
+  // Use a separate state and useEffect to handle client-side hydration properly
+  const [isAggregator, setIsAggregator] = useState(false);
+  
+  // Load from localStorage only after initial render on client
+  useEffect(() => {
+    const saved = localStorage.getItem('isAggregator');
+    if (saved) {
+      setIsAggregator(JSON.parse(saved));
+    }
+  }, []);
+  
   const toggleAmsConnectionError = () => {
     setShowAmsConnectionError((prev) => !prev);
   };
@@ -57,6 +72,17 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   
   const toggleOnboarding = () => {
     setShowOnboarding((prev) => !prev);
+  };
+  
+  const toggleIsAggregator = () => {
+    setIsAggregator((prev: boolean) => {
+      const newValue = !prev;
+      // Save to localStorage when value changes
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('isAggregator', JSON.stringify(newValue));
+      }
+      return newValue;
+    });
   };
   
   return (
@@ -74,6 +100,8 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
         setSelectedAms,
         carrierGroups,
         setCarrierGroups,
+        isAggregator,
+        toggleIsAggregator,
       }}
     >
       {children}
@@ -93,6 +121,8 @@ export function ConfigPanel() {
     toggleOnboarding,
     onboardingStep,
     setOnboardingStep,
+    isAggregator,
+    toggleIsAggregator,
   } = useConfig();
   
   return (
@@ -158,6 +188,25 @@ export function ConfigPanel() {
                     className={cn(
                       "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
                       showOnboarding ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+
+              <label className="flex items-center justify-between">
+                <span className="text-sm">Is Aggregator/MGA</span>
+                <div
+                  onClick={toggleIsAggregator}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    isAggregator ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      isAggregator ? "translate-x-4" : "translate-x-0.5"
                     )}
                     style={{ margin: "2px 0" }}
                   />
