@@ -28,7 +28,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { ArrowUpDown, MoreHorizontal, PlusIcon, ShieldCheck, User, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 // Mock user data
 interface User {

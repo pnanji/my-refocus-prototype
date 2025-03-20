@@ -21,7 +21,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { PlusIcon, MoreHorizontal, Trash2, ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 // Mock agency data
 interface Agency {
