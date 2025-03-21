@@ -37,11 +37,6 @@ export default function SettingsPage() {
   // Preferences section items
   const preferenceItems: SettingsMenuItem[] = [
     {
-      title: "Notifications",
-      description: "Control how we notify you about upcoming at-risk renewals",
-      href: "/settings/notifications",
-    },
-    {
       title: "Data Mapping",
       description: "Map your AMS data to our standard categories",
       href: "/settings/data-mapping",
@@ -51,6 +46,11 @@ export default function SettingsPage() {
       description: "Select which types of policies to include in your at-risk prediction model",
       href: "/settings/filter-options",
       isNew: true,
+    },
+    {
+      title: "Notifications",
+      description: "Control how we notify you about upcoming at-risk renewals",
+      href: "/settings/notifications",
     },
   ];
 
@@ -83,14 +83,7 @@ export default function SettingsPage() {
                 </div>
               )}
               <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-medium">{item.title}</h3>
-                  {item.isNew && (
-                    <span className="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-sm font-medium">
-                      NEW
-                    </span>
-                  )}
-                </div>
+                <h3 className="text-sm font-medium">{item.title}</h3>
                 <p className="text-sm text-gray-500">{item.description}</p>
               </div>
             </div>
@@ -103,6 +96,11 @@ export default function SettingsPage() {
               {item.title === "CRM" && showCrmConnectionError && (
                 <span className="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-sm font-medium whitespace-nowrap">
                   CONNECTION ISSUE
+                </span>
+              )}
+              {item.isNew && (
+                <span className="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-sm font-medium whitespace-nowrap">
+                  NEW
                 </span>
               )}
               <ChevronRight className="text-gray-400 h-5 w-5" />

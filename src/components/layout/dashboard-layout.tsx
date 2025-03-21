@@ -49,6 +49,12 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     if (segment.toLowerCase() === 'ams' || segment.toLowerCase() === 'ams360') {
       return 'AMS';
     }
+    if (segment.toLowerCase() === 'data-mapping') {
+      return 'Data Mapping';
+    }
+    if (segment.toLowerCase() === 'filter-options') {
+      return 'Filter Options';
+    }
     return capitalize(segment);
   };
   
