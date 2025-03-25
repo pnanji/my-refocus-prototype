@@ -3,7 +3,7 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { useConfig } from "@/components/config-panel";
 import Image from "next/image";
-import { ChevronRight, AlertTriangle, Sparkles } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 

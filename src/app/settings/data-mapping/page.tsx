@@ -13,14 +13,6 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { 
-  Table, 
-  TableHeader, 
-  TableRow, 
-  TableHead, 
-  TableBody, 
-  TableCell 
-} from "@/components/ui/table";
 import { Label } from "@/components/ui/label";
 import { Toaster, toast } from "sonner";
 import Link from "next/link";
@@ -57,9 +49,6 @@ export default function DataMappingSettings() {
   const [cancelledPolicies, setCancelledPolicies] = useState<string[]>(["Cancelled", "Lapsed"]);
   const [otherPolicyStatuses, setOtherPolicyStatuses] = useState<string[]>(["Pending"]);
   
-  // State for tracking form changes
-  const [hasChanges, setHasChanges] = useState(false);
-  
   // State for edit mode
   const [editMode, setEditMode] = useState(false);
 
@@ -73,7 +62,6 @@ export default function DataMappingSettings() {
   const handleActiveSelect = (value: string) => {
     if (value && !activePolicies.includes(value)) {
       setActivePolicies([...activePolicies, value]);
-      setHasChanges(true);
     }
   };
 
@@ -81,7 +69,6 @@ export default function DataMappingSettings() {
   const handleCancelledSelect = (value: string) => {
     if (value && !cancelledPolicies.includes(value)) {
       setCancelledPolicies([...cancelledPolicies, value]);
-      setHasChanges(true);
     }
   };
 
@@ -89,52 +76,43 @@ export default function DataMappingSettings() {
   const handleOtherSelect = (value: string) => {
     if (value && !otherPolicyStatuses.includes(value)) {
       setOtherPolicyStatuses([...otherPolicyStatuses, value]);
-      setHasChanges(true);
     }
   };
 
   // Remove a value from active policies
   const removeActivePolicy = (value: string) => {
     setActivePolicies(activePolicies.filter(item => item !== value));
-    setHasChanges(true);
   };
 
   // Remove a value from cancelled policies
   const removeCancelledPolicy = (value: string) => {
     setCancelledPolicies(cancelledPolicies.filter(item => item !== value));
-    setHasChanges(true);
   };
 
   // Remove a value from other policy statuses
   const removeOtherPolicyStatus = (value: string) => {
     setOtherPolicyStatuses(otherPolicyStatuses.filter(item => item !== value));
-    setHasChanges(true);
   };
 
   // Handle column selection changes
   const handlePolicyStatusColumnChange = (value: string) => {
     setPolicyStatusColumn(value);
-    setHasChanges(true);
   };
 
   const handlePolicyTypeColumnChange = (value: string) => {
     setPolicyTypeColumn(value);
-    setHasChanges(true);
   };
 
   const handleBusinessLineColumnChange = (value: string) => {
     setBusinessLineColumn(value);
-    setHasChanges(true);
   };
 
   const handleDateWrittenColumnChange = (value: string) => {
     setDateWrittenColumn(value);
-    setHasChanges(true);
   };
 
   const handleDateExpiresColumnChange = (value: string) => {
     setDateExpiresColumn(value);
-    setHasChanges(true);
   };
 
   // Toggle edit mode
@@ -154,15 +132,7 @@ export default function DataMappingSettings() {
     setActivePolicies(["Active", "In Force"]);
     setCancelledPolicies(["Cancelled", "Lapsed"]);
     setOtherPolicyStatuses(["Pending"]);
-    setHasChanges(false);
   }, []);
-
-  const handleSave = () => {
-    // In a real implementation, this would save data to backend
-    toast.success("Data mapping settings saved successfully");
-    setHasChanges(false);
-    setEditMode(false); // Exit edit mode after saving
-  };
 
   return (
     <DashboardLayout>
