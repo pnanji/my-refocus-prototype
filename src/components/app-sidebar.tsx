@@ -5,6 +5,7 @@ import { LayoutDashboard, HelpCircle, Lock, Settings, Users } from "lucide-react
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { useConfig } from "@/components/config-panel"
 
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -58,6 +59,10 @@ const userData = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
+  const { showAmsConnectionError, showCrmConnectionError } = useConfig();
+  
+  // Check if there's any connection error
+  const hasConnectionError = showAmsConnectionError || showCrmConnectionError;
   
   return (
     <div className="dark">
@@ -82,15 +87,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     pathname === item.url || 
                     (item.url !== '/' && pathname.startsWith(item.url));
                     
+                  // Check if this is the Settings item and if we need to show the notification dot
+                  const showNotificationDot = item.title === "Settings" && hasConnectionError;
+                  
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild isActive={isActive}>
                         <Link 
                           href={item.url} 
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-2 relative"
                         >
                           <item.icon className="h-5 w-5" />
                           <span>{item.title}</span>
+                          {showNotificationDot && (
+                            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
+                              <div className="w-[18px] h-[18px] rounded-full bg-red-700 flex items-center justify-center">
+                                <span className="text-white font-bold text-[11px]" style={{ lineHeight: 1 }}>!</span>
+                              </div>
+                            </div>
+                          )}
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
