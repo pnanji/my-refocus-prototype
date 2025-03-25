@@ -55,6 +55,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     if (segment.toLowerCase() === 'filter-options') {
       return 'Filter Options';
     }
+    if (segment.toLowerCase() === 'close-account') {
+      return 'Close Account';
+    }
     return capitalize(segment);
   };
   

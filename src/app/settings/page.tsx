@@ -72,6 +72,11 @@ export default function SettingsPage() {
       description: "Manage users and their roles within your agency",
       href: "/settings/users",
     },
+    {
+      title: "Close Account",
+      description: "Learn about account closure and data handling",
+      href: "/settings/close-account",
+    },
   ];
 
   // Render a settings menu item
@@ -190,26 +195,6 @@ export default function SettingsPage() {
               {preferenceItems.map((item, index) => 
                 renderMenuItem(item, index === preferenceItems.length - 1)
               )}
-            </div>
-          </div>
-
-          {/* Close Account Section */}
-          <div>
-            <h2 className="text-base font-medium text-gray-900 mb-3">Close Account</h2>
-            <div className="bg-white border rounded-lg overflow-hidden">
-              <div className="p-6">
-                <p className="text-sm text-muted-foreground mb-4">
-                  Closing your account will permanently delete all your data and cancel your subscription. This action cannot be undone.
-                </p>
-                <div className="flex justify-end">
-                  <Link 
-                    href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" 
-                    className="text-sm text-red-600 hover:text-red-700 font-medium"
-                  >
-                    Contact us to close account
-                  </Link>
-                </div>
-              </div>
             </div>
           </div>
         </div>

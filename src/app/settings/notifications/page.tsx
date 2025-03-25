@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Plus, AlertTriangle } from "lucide-react";
 import Link from "next/link";
@@ -68,19 +68,33 @@ export default function NotificationsSettings() {
     const endDate = new Date(startDate);
     endDate.setDate(startDate.getDate() + 6);
     
+    return { startDate, endDate };
+  };
+
+  // Create state to hold formatted dates
+  const [formattedDates, setFormattedDates] = useState({
+    personalStart: '',
+    personalEnd: '',
+  });
+
+  // Get date objects for personal days
+  const personalDates = useMemo(() => 
+    calculateDateRange(Number(personalDays) || 0),
+    [personalDays]
+  );
+
+  // Format dates on client-side only to avoid hydration errors
+  useEffect(() => {
     // Format dates as Month Day (e.g., February 15)
     const formatDate = (date: Date) => {
       return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
     };
-    
-    return {
-      startFormatted: formatDate(startDate),
-      endFormatted: formatDate(endDate)
-    };
-  };
 
-  // Get formatted date ranges for help text
-  const personalDateRange = calculateDateRange(Number(personalDays) || 0);
+    setFormattedDates({
+      personalStart: formatDate(personalDates.startDate),
+      personalEnd: formatDate(personalDates.endDate),
+    });
+  }, [personalDates]);
 
   // Generate appropriate alert message based on which values are reduced
   const getAlertMessage = () => {
@@ -251,7 +265,7 @@ export default function NotificationsSettings() {
                     </span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-3 mb-8">
-                    e.g. This means on January 1st, you&apos;ll be notified of expirations from {personalDateRange.startFormatted} - {personalDateRange.endFormatted}.
+                    e.g. This means on January 1st, you&apos;ll be notified of expirations from {formattedDates.personalStart || '...'} - {formattedDates.personalEnd || '...'}.
                   </p>
 
                   {/* Commercial Section */}
