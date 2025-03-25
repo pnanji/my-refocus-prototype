@@ -22,6 +22,8 @@ interface ConfigContextType {
   setCarrierGroups: React.Dispatch<React.SetStateAction<CarrierGroups>>;
   isAggregator: boolean;
   toggleIsAggregator: () => void;
+  isAmsConnected: boolean;
+  setIsAmsConnected: (value: boolean) => void;
 }
 
 const ConfigContext = React.createContext<ConfigContextType>({
@@ -39,6 +41,8 @@ const ConfigContext = React.createContext<ConfigContextType>({
   setCarrierGroups: () => {},
   isAggregator: false,
   toggleIsAggregator: () => {},
+  isAmsConnected: false,
+  setIsAmsConnected: () => {},
 });
 
 export const useConfig = () => React.useContext(ConfigContext);
@@ -50,6 +54,7 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [onboardingStep, setOnboardingStep] = useState<'welcome' | 'select-ams' | 'connection-setup' | 'in-progress' | 'completed-first-step' | 'requoting-setup'>('welcome');
   const [selectedAms, setSelectedAms] = useState<string | null>(null);
   const [carrierGroups, setCarrierGroups] = useState<CarrierGroups>(sampleCarriers);
+  const [isAmsConnected, setIsAmsConnected] = useState(true);
   
   // Use a separate state and useEffect to handle client-side hydration properly
   const [isAggregator, setIsAggregator] = useState(false);
@@ -59,6 +64,11 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem('isAggregator');
     if (saved) {
       setIsAggregator(JSON.parse(saved));
+    }
+    
+    const amsConnected = localStorage.getItem('isAmsConnected');
+    if (amsConnected !== null) {
+      setIsAmsConnected(JSON.parse(amsConnected));
     }
   }, []);
   
@@ -84,6 +94,14 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
       return newValue;
     });
   };
+
+  // Update isAmsConnected and save to localStorage
+  const handleSetIsAmsConnected = (value: boolean) => {
+    setIsAmsConnected(value);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('isAmsConnected', JSON.stringify(value));
+    }
+  };
   
   return (
     <ConfigContext.Provider
@@ -102,6 +120,8 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
         setCarrierGroups,
         isAggregator,
         toggleIsAggregator,
+        isAmsConnected,
+        setIsAmsConnected: handleSetIsAmsConnected,
       }}
     >
       {children}
@@ -123,6 +143,8 @@ export function ConfigPanel() {
     setOnboardingStep,
     isAggregator,
     toggleIsAggregator,
+    isAmsConnected,
+    setIsAmsConnected,
   } = useConfig();
   
   return (
@@ -137,6 +159,25 @@ export function ConfigPanel() {
           </div>
           <div className="p-4">
             <div className="space-y-3">
+              <label className="flex items-center justify-between">
+                <span className="text-sm">AMS Connected</span>
+                <div
+                  onClick={() => setIsAmsConnected(!isAmsConnected)}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    isAmsConnected ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      isAmsConnected ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+              
               <label className="flex items-center justify-between">
                 <span className="text-sm">AMS Connection Error</span>
                 <div

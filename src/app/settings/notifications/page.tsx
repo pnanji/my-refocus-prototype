@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Plus } from "lucide-react";
+import { Plus, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,8 +18,21 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { useConfig } from "@/components/config-panel";
+import { useRouter } from "next/navigation";
 
 export default function NotificationsSettings() {
+  const { isAmsConnected } = useConfig();
+  const router = useRouter();
+  
+  // Redirect if no AMS is connected
+  useEffect(() => {
+    // Alternative: Uncomment to auto-redirect instead of showing alert
+    // if (!isAmsConnected) {
+    //   router.push('/settings/ams');
+    // }
+  }, [isAmsConnected, router]);
+
   // State for form values
   const [personalDays, setPersonalDays] = useState("45");
   const [commercialDays, setCommercialDays] = useState("45");
@@ -176,7 +189,7 @@ export default function NotificationsSettings() {
   return (
     <DashboardLayout>
       <div className="bg-gray-50 py-6">
-        <div className="max-w-[696px] mx-auto px-4 pb-10">
+        <div className="max-w-[640px] mx-auto px-4 pb-10">
           {/* Header with title and save button */}
           <div className="flex justify-between items-center mb-6">
             <div>
@@ -195,182 +208,195 @@ export default function NotificationsSettings() {
               Save
             </Button>
           </div>
+          
+          {!isAmsConnected ? (
+            <Alert variant="warning" className="bg-amber-50 border border-amber-200 mb-6">
+              <AlertDescription className="text-sm">
+                You need to connect an AMS before you can configure notifications. 
+                <Link href="/settings/ams" className="font-medium underline ml-1">
+                  Click here to set up your AMS
+                </Link>
+              </AlertDescription>
+            </Alert>
+          ) : (
+            <>
+              {/* At-Risk Notifications */}
+              <div className="bg-white border rounded-lg overflow-hidden mb-6">
+                <div className="p-6">
+                  {/* Show alert if either personal or commercial days were decreased */}
+                  {(personalDaysReduced || commercialDaysReduced) && (
+                    <Alert variant="warning" className="mb-6">
+                      <AlertDescription className="text-foreground">
+                        {getAlertMessage()} Need help understanding this change? <Link href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" className="underline">Contact our support team</Link>.
+                      </AlertDescription>
+                    </Alert>
+                  )}
 
-          {/* At-Risk Notifications */}
-          <div className="bg-white border rounded-lg overflow-hidden mb-6">
-            <div className="p-6">
-              {/* Show alert if either personal or commercial days were decreased */}
-              {(personalDaysReduced || commercialDaysReduced) && (
-                <Alert variant="warning" className="mb-6">
-                  <AlertDescription className="text-foreground">
-                    {getAlertMessage()} Need help understanding this change? <Link href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" className="underline">Contact our support team</Link>.
-                  </AlertDescription>
-                </Alert>
-              )}
+                  {/* Personal Section */}
+                  <h2 className="text-sm font-medium text-foreground mb-1">
+                    When should we notify you about upcoming personal at-risk cancellations?
+                  </h2>
+                  <div className="flex items-center gap-2 bg-gray-50 p-4 rounded-md">
+                    <span className="text-sm text-muted-foreground">Notify me</span>
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={personalDays}
+                      onChange={handlePersonalDaysChange}
+                      className="w-12 h-8 text-center [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    />
+                    <span className="text-sm text-muted-foreground flex-1">
+                      days in advance and include policies expiring in the next 7 days.
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3 mb-8">
+                    e.g. This means on January 1st, you&apos;ll be notified of expirations from {personalDateRange.startFormatted} - {personalDateRange.endFormatted}.
+                  </p>
 
-              {/* Personal Section */}
-              <h2 className="text-sm font-medium text-foreground mb-1">
-                When should we notify you about upcoming personal at-risk cancellations?
-              </h2>
-              <div className="flex items-center gap-2 bg-gray-50 p-4 rounded-md">
-                <span className="text-sm text-muted-foreground">Notify me</span>
-                <Input
-                  type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={personalDays}
-                  onChange={handlePersonalDaysChange}
-                  className="w-12 h-8 text-center [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-                <span className="text-sm text-muted-foreground flex-1">
-                  days in advance and include policies expiring in the next 7 days.
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-3 mb-8">
-                e.g. This means on January 1st, you&apos;ll be notified of expirations from {personalDateRange.startFormatted} - {personalDateRange.endFormatted}.
-              </p>
-
-              {/* Commercial Section */}
-              <h2 className="text-sm font-medium text-foreground mb-1">
-                When should we notify you about upcoming commercial at-risk cancellations?
-              </h2>
-              <div className="flex items-center gap-2 bg-gray-50 p-4 rounded-md">
-                <span className="text-sm text-muted-foreground">Notify me</span>
-                <Input
-                  type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={commercialDays}
-                  onChange={handleCommercialDaysChange}
-                  className="w-12 h-8 text-center [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-                <span className="text-sm text-muted-foreground flex-1">
-                  days in advance and include policies expiring in the next 7 days.
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Weekly Summary Recipients */}
-          <div className="bg-white border rounded-lg overflow-hidden mb-6">
-            <div className="p-6">
-              <h2 className="text-sm font-medium text-foreground mb-1">
-                Who should receive the weekly summary email about at-risk cancellations?
-              </h2>
-              <p className="text-sm text-muted-foreground mb-3">
-                You can add up to 10 people.
-              </p>
-              
-              <div className="space-y-4">
-                <div className="grid w-full max-w-60 items-center gap-2">
-                  <Label htmlFor="primary-email">Primary</Label>
-                  <Input
-                    type="email"
-                    id="primary-email"
-                    value={primaryEmail}
-                    onChange={handlePrimaryEmailChange}
-                  />
+                  {/* Commercial Section */}
+                  <h2 className="text-sm font-medium text-foreground mb-1">
+                    When should we notify you about upcoming commercial at-risk cancellations?
+                  </h2>
+                  <div className="flex items-center gap-2 bg-gray-50 p-4 rounded-md">
+                    <span className="text-sm text-muted-foreground">Notify me</span>
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={commercialDays}
+                      onChange={handleCommercialDaysChange}
+                      className="w-12 h-8 text-center [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    />
+                    <span className="text-sm text-muted-foreground flex-1">
+                      days in advance and include policies expiring in the next 7 days.
+                    </span>
+                  </div>
                 </div>
+              </div>
 
-                <div className="space-y-2">
-                  <Label>Cc:</Label>
-                  <div className="space-y-1.5">
-                    {additionalEmails.map((email, index) => (
+              {/* Weekly Summary Recipients */}
+              <div className="bg-white border rounded-lg overflow-hidden mb-6">
+                <div className="p-6">
+                  <h2 className="text-sm font-medium text-foreground mb-1">
+                    Who should receive the weekly summary email about at-risk cancellations?
+                  </h2>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    You can add up to 10 people.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <div className="grid w-full max-w-60 items-center gap-2">
+                      <Label htmlFor="primary-email">Primary</Label>
                       <Input
-                        key={index}
                         type="email"
-                        value={email}
-                        readOnly
-                        placeholder="Email"
-                        className="max-w-60"
+                        id="primary-email"
+                        value={primaryEmail}
+                        onChange={handlePrimaryEmailChange}
                       />
-                    ))}
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      className="max-w-60"
-                    />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Cc:</Label>
+                      <div className="space-y-1.5">
+                        {additionalEmails.map((email, index) => (
+                          <Input
+                            key={index}
+                            type="email"
+                            value={email}
+                            readOnly
+                            placeholder="Email"
+                            className="max-w-60"
+                          />
+                        ))}
+                        <Input
+                          type="email"
+                          placeholder="Email"
+                          className="max-w-60"
+                        />
+                      </div>
+                    </div>
                   </div>
+                  
+                  <Button
+                    type="button"
+                    variant="dashed"
+                    size="default"
+                    className="text-sm mt-2 w-[240px]"
+                    onClick={handleAddEmail}
+                  >
+                    <Plus className="h-4 w-4 mr-1" /> Add Additional Email
+                  </Button>
                 </div>
               </div>
-              
-              <Button
-                type="button"
-                variant="dashed"
-                size="default"
-                className="text-sm mt-2 w-[240px]"
-                onClick={handleAddEmail}
-              >
-                <Plus className="h-4 w-4 mr-1" /> Add Additional Email
-              </Button>
-            </div>
-          </div>
 
-          {/* AMS Notification Preferences */}
-          <div className="bg-white border rounded-lg overflow-hidden mb-6">
-            <div className="p-6">
-              <h2 className="text-sm font-medium text-foreground mb-4">
-                How would you like to be notified of at-risk cancellations in AMS360?
-              </h2>
-              
-              <RadioGroup 
-                value={notificationMethod} 
-                onValueChange={handleNotificationMethodChange}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="automated" id="automated" />
-                  <Label htmlFor="automated" className="font-normal">
-                    Automated Suspense <span className="text-muted-foreground text-sm">(most common)</span>
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="notes" id="notes" />
-                  <Label htmlFor="notes" className="font-normal">Notes</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="dont-notify" id="dont-notify" />
-                  <Label htmlFor="dont-notify" className="font-normal">Don&apos;t notify me in AMS360</Label>
-                </div>
-              </RadioGroup>
+              {/* AMS Notification Preferences */}
+              <div className="bg-white border rounded-lg overflow-hidden mb-6">
+                <div className="p-6">
+                  <h2 className="text-sm font-medium text-foreground mb-4">
+                    How would you like to be notified of at-risk cancellations in AMS360?
+                  </h2>
+                  
+                  <RadioGroup 
+                    value={notificationMethod} 
+                    onValueChange={handleNotificationMethodChange}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="automated" id="automated" />
+                      <Label htmlFor="automated" className="font-normal">
+                        Automated Suspense <span className="text-muted-foreground text-sm">(most common)</span>
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="notes" id="notes" />
+                      <Label htmlFor="notes" className="font-normal">Notes</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="dont-notify" id="dont-notify" />
+                      <Label htmlFor="dont-notify" className="font-normal">Don&apos;t notify me in AMS360</Label>
+                    </div>
+                  </RadioGroup>
 
-              {/* Suspense Assignment (only visible when automated is selected) */}
-              {notificationMethod === "automated" && (
-                <>
-                  <div className="mt-6 mb-4">
-                    <Label className="text-sm text-foreground mb-2">
-                      Who to assign the suspense?
-                    </Label>
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      value={assignee}
-                      onChange={(e) => {
-                        setAssignee(e.target.value);
-                        setHasChanges(true);
-                      }}
-                      className="w-full max-w-60"
-                    />
-                  </div>
+                  {/* Suspense Assignment (only visible when automated is selected) */}
+                  {notificationMethod === "automated" && (
+                    <>
+                      <div className="mt-6 mb-4">
+                        <Label className="text-sm text-foreground mb-2">
+                          Who to assign the suspense?
+                        </Label>
+                        <Input
+                          type="email"
+                          placeholder="Email"
+                          value={assignee}
+                          onChange={(e) => {
+                            setAssignee(e.target.value);
+                            setHasChanges(true);
+                          }}
+                          className="w-full max-w-60"
+                        />
+                      </div>
 
-                  <div>
-                    <Label className="text-sm text-foreground mb-2">
-                      Suspense Due Date
-                    </Label>
-                    <Select value={suspenseDue} onValueChange={handleSuspenseDueChange}>
-                      <SelectTrigger className="w-full max-w-60">
-                        <SelectValue placeholder="Select days..." />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="7 days from creation">7 days from creation</SelectItem>
-                        <SelectItem value="14 days from creation">14 days from creation</SelectItem>
-                        <SelectItem value="30 days from creation">30 days from creation</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
+                      <div>
+                        <Label className="text-sm text-foreground mb-2">
+                          Suspense Due Date
+                        </Label>
+                        <Select value={suspenseDue} onValueChange={handleSuspenseDueChange}>
+                          <SelectTrigger className="w-full max-w-60">
+                            <SelectValue placeholder="Select days..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="7 days from creation">7 days from creation</SelectItem>
+                            <SelectItem value="14 days from creation">14 days from creation</SelectItem>
+                            <SelectItem value="30 days from creation">30 days from creation</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <Toaster position="top-right" />
