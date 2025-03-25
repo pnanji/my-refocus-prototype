@@ -156,6 +156,15 @@ export default function SettingsPage() {
             </Alert>
           )}
 
+          {/* CRM Connection Error Alert */}
+          {showCrmConnectionError && (
+            <Alert variant="error" className="bg-red-50 border border-red-200 mb-6">
+              <AlertDescription className="text-gray-900">
+                We&apos;re having trouble connecting to your CRM. Please click on CRM section below to re-enter your credentials or <Link href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" className="underline">contact our support team</Link> for assistance.
+              </AlertDescription>
+            </Alert>
+          )}
+
           {/* AMS Connection Alert */}
           {!isAmsConnected && (
             <Alert variant="warning" className="bg-amber-50 border border-amber-200 mb-6">
