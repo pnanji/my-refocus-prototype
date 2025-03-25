@@ -20,13 +20,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { ArrowUpDown, MoreHorizontal, PlusIcon, ShieldCheck, User, Trash2 } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { ArrowUpDown, PenIcon, PlusIcon, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Mock user data
@@ -41,22 +50,16 @@ interface User {
 function RoleBadge({ role }: { role: "admin" | "user" }) {
   if (role === "admin") {
     return (
-      <Badge variant="secondary" className="bg-blue-100 text-blue-800 hover:bg-blue-100">
-        <ShieldCheck className="mr-1 h-3 w-3" />
+      <Badge className="bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded-sm font-medium whitespace-nowrap px-2 py-0.5">
         Admin
       </Badge>
     );
   }
   
-  return (
-    <Badge variant="outline" className="bg-gray-100 text-gray-700 hover:bg-gray-100 border-0">
-      <User className="mr-1 h-3 w-3" />
-      User
-    </Badge>
-  );
+  return null;
 }
 
-export default function UserManagementPage() {
+export default function UsersPage() {
   // In a real app, this would come from a database
   const [users, setUsers] = useState<User[]>([
     { id: "1", name: "John Doe", email: "john@example.com", role: "admin" },
@@ -85,11 +88,55 @@ export default function UserManagementPage() {
   });
   const [showAddForm, setShowAddForm] = useState(false);
 
-  // Handle role change
-  const handleRoleChange = (userId: string, role: "admin" | "user") => {
+  // Edit user state
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [editFormData, setEditFormData] = useState({
+    name: "",
+    email: "",
+    role: "user" as "admin" | "user",
+  });
+
+  // Handle edit dialog open
+  const openEditDialog = (user: User) => {
+    setEditingUser(user);
+    setEditFormData({
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+    setIsEditDialogOpen(true);
+  };
+
+  // Handle edit form input change
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Handle edit form role change
+  const handleEditRoleChange = (role: "admin" | "user") => {
+    setEditFormData(prev => ({
+      ...prev,
+      role,
+    }));
+  };
+
+  // Save edited user
+  const saveEditedUser = () => {
+    if (!editingUser) return;
+    
     setUsers(
-      users.map((user) => (user.id === userId ? { ...user, role } : user))
+      users.map((user) => 
+        user.id === editingUser.id ? { ...user, ...editFormData } : user
+      )
     );
+    
+    setIsEditDialogOpen(false);
+    setEditingUser(null);
   };
 
   // Add new user
@@ -127,7 +174,7 @@ export default function UserManagementPage() {
         <div className="max-w-[1000px] mx-auto px-4 pb-10">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h1 className="text-base font-medium text-gray-900">User Management</h1>
+              <h1 className="text-base font-medium text-gray-900">Users</h1>
               <p className="text-sm text-gray-500">
                 Manage users and their roles within your agency
               </p>
@@ -172,18 +219,8 @@ export default function UserManagementPage() {
                       <SelectValue placeholder="Select role" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="admin">
-                        <div className="flex items-center">
-                          <ShieldCheck className="mr-2 h-4 w-4 text-blue-600" />
-                          Admin
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="user">
-                        <div className="flex items-center">
-                          <User className="mr-2 h-4 w-4 text-gray-600" />
-                          User
-                        </div>
-                      </SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="user">User</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -215,66 +252,31 @@ export default function UserManagementPage() {
                   </TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Role</TableHead>
-                  <TableHead className="w-[80px] text-right">Actions</TableHead>
+                  <TableHead className="w-[100px] text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {sortedUsers.map((user) => (
                   <TableRow key={user.id} className="h-12 hover:bg-gray-50">
                     <TableCell className="font-medium">
-                      {user.name}
+                      <div className="flex items-center gap-2">
+                        {user.name}
+                        {user.role === "admin" && <RoleBadge role="admin" />}
+                      </div>
                     </TableCell>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>
-                      <Select
-                        value={user.role}
-                        onValueChange={(value: "admin" | "user") => 
-                          handleRoleChange(user.id, value)
-                        }
-                      >
-                        <SelectTrigger className="w-[130px]">
-                          <SelectValue>
-                            <RoleBadge role={user.role} />
-                          </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="admin">
-                            <div className="flex items-center">
-                              <ShieldCheck className="mr-2 h-4 w-4 text-blue-600" />
-                              Admin
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="user">
-                            <div className="flex items-center">
-                              <User className="mr-2 h-4 w-4 text-gray-600" />
-                              User
-                            </div>
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                      {user.role === "admin" ? "Admin" : "User"}
                     </TableCell>
                     <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button 
-                            variant="secondary" 
-                            size="icon" 
-                            className="h-8 w-8"
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Open menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem
-                            onClick={() => handleRemoveUser(user.id)}
-                            className="text-red-600 focus:text-red-700 focus:bg-red-50"
-                          >
-                            <Trash2 className="mr-2 h-4 w-4" />
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                      <Button 
+                        variant="secondary" 
+                        size="sm"
+                        className="px-2.5 py-1 h-auto"
+                        onClick={() => openEditDialog(user)}
+                      >
+                        Edit
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -288,6 +290,60 @@ export default function UserManagementPage() {
           </div>
         </div>
       </div>
+
+      {/* Edit User Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit User</DialogTitle>
+            <DialogDescription>
+              Make changes to the user information below.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={editFormData.name}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={editFormData.email}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="role">Role</Label>
+              <Select
+                value={editFormData.role}
+                onValueChange={(value: "admin" | "user") => handleEditRoleChange(value)}
+              >
+                <SelectTrigger id="role">
+                  <SelectValue placeholder="Select role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="admin">Admin</SelectItem>
+                  <SelectItem value="user">User</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={saveEditedUser}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
   );
 } 
