@@ -32,7 +32,7 @@ export default function CloseAccountSettings() {
                   <li>Your subscription will be cancelled immediately</li>
                   <li>Access to the platform will be removed for all users</li>
                   <li>Your data will be securely archived for 60 days before permanent deletion</li>
-                  <li>You'll receive an email confirmation of the account closure</li>
+                  <li>You&apos;ll receive an email confirmation of the account closure</li>
                 </ul>
                 <p className="text-sm text-muted-foreground">
                   Need to switch your AMS instead? You can do that in the <Link href="/settings/ams" className="underline">AMS settings</Link>.

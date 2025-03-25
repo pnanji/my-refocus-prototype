@@ -27,15 +27,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowUpDown, PenIcon, PlusIcon, Trash2 } from "lucide-react";
+import { ArrowUpDown, PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Mock user data
@@ -147,11 +141,6 @@ export default function UsersPage() {
     setUsers([...users, { ...newUser, id: newId }]);
     setNewUser({ name: "", email: "", role: "user" });
     setShowAddForm(false);
-  };
-
-  // Remove user
-  const handleRemoveUser = (userId: string) => {
-    setUsers(users.filter((user) => user.id !== userId));
   };
 
   // Toggle sort direction

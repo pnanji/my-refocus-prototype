@@ -319,7 +319,7 @@ export default function AMSSettings() {
               <div className="p-6">
                 <div className="text-center mb-4">
                   <p className="text-sm text-muted-foreground">
-                    Need to switch your AMS? We'll guide you through connecting your new system. Your existing data will be safely stored for 60 days while we help you transition.
+                    Need to switch your AMS? We&apos;ll guide you through connecting your new system. Your existing data will be safely stored for 60 days while we help you transition.
                   </p>
                 </div>
                 <div className="flex justify-center">

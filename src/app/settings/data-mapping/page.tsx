@@ -1,23 +1,30 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { X, AlertTriangle } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useConfig } from "@/components/config-panel";
-import { useRouter } from "next/navigation";
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from "@/components/ui/select";
+import { 
+  Table, 
+  TableHeader, 
+  TableRow, 
+  TableHead, 
+  TableBody, 
+  TableCell 
+} from "@/components/ui/table";
+import { Label } from "@/components/ui/label";
+import { Toaster, toast } from "sonner";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function DataMappingSettings() {
   const { isAmsConnected } = useConfig();
@@ -32,7 +39,7 @@ export default function DataMappingSettings() {
   }, [isAmsConnected, router]);
   
   // State for policy status column
-  const [policyStatusColumn, setPolicyStatusColumn] = useState("policy_status");
+  const [policyStatusColumn, setPolicyStatusColumn] = useState("status");
   
   // State for policy type, business line, and dates
   const [policyTypeColumn, setPolicyTypeColumn] = useState("policy_type");
@@ -46,9 +53,9 @@ export default function DataMappingSettings() {
   ];
   
   // Selected values for each category
-  const [activePolicies, setActivePolicies] = useState<string[]>([]);
-  const [cancelledPolicies, setCancelledPolicies] = useState<string[]>([]);
-  const [otherPolicyStatuses, setOtherPolicyStatuses] = useState<string[]>([]);
+  const [activePolicies, setActivePolicies] = useState<string[]>(["Active", "In Force"]);
+  const [cancelledPolicies, setCancelledPolicies] = useState<string[]>(["Cancelled", "Lapsed"]);
+  const [otherPolicyStatuses, setOtherPolicyStatuses] = useState<string[]>(["Pending"]);
   
   // State for tracking form changes
   const [hasChanges, setHasChanges] = useState(false);
@@ -132,14 +139,21 @@ export default function DataMappingSettings() {
 
   // Toggle edit mode
   const toggleEditMode = () => {
-    setEditMode(prev => !prev);
+    if (editMode) {
+      // If we're exiting edit mode, cancel changes or save them
+      setEditMode(false);
+      toast.success("Editing mode disabled");
+    } else {
+      setEditMode(true);
+      toast.info("Editing mode enabled");
+    }
   };
 
   // Initialize with some default selections
   useEffect(() => {
-    setActivePolicies(["Active"]);
-    setCancelledPolicies(["Cancelled"]);
-    setOtherPolicyStatuses(["Expired"]);
+    setActivePolicies(["Active", "In Force"]);
+    setCancelledPolicies(["Cancelled", "Lapsed"]);
+    setOtherPolicyStatuses(["Pending"]);
     setHasChanges(false);
   }, []);
 
