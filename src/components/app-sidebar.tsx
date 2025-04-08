@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { LayoutDashboard, HelpCircle, Lock, Settings, Users } from "lucide-react"
+import { LayoutDashboard, HelpCircle, Lock, Settings, Users, Palette } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
@@ -36,6 +36,11 @@ const navItems = [
     title: "Settings",
     url: "/settings",
     icon: Settings,
+  },
+  {
+    title: "Colors Tool",
+    url: "/colors",
+    icon: Palette,
   },
 ]
 

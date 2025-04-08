@@ -51,6 +51,12 @@ export default function SettingsPage() {
       requiresAms: true,
     },
     {
+      title: "Colors",
+      description: "Extract brand colors from carrier logos for consistent UI styling",
+      href: "/settings/colors",
+      isNew: true,
+    },
+    {
       title: "Notifications",
       description: "Control how we notify you about upcoming at-risk renewals",
       href: "/settings/notifications",
