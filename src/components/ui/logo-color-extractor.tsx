@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { sampleCarriers, Carrier } from '@/lib/carriers';
 import { Check, AlertCircle } from 'lucide-react';
+import Image from 'next/image';
 
 export function LogoColorExtractor() {
   const [imageUrl, setImageUrl] = useState<string>('');
@@ -164,10 +165,13 @@ export function LogoColorExtractor() {
 
         {uploadedImage && (
           <div className="flex justify-center">
-            <img 
+            <Image 
               src={uploadedImage} 
               alt="Logo" 
+              width={160}
+              height={160}
               className="max-h-40 object-contain border rounded p-2"
+              style={{ width: 'auto', height: 'auto' }}
             />
           </div>
         )}
@@ -241,10 +245,13 @@ export function LogoColorExtractor() {
                 <div className="h-[64px] flex justify-center items-center border-b border-black/5 relative">
                   <div className="flex items-center justify-center">
                     {selectedCarrier && carriers.find(c => c.id === selectedCarrier)?.logo ? (
-                      <img 
-                        src={carriers.find(c => c.id === selectedCarrier)?.logo} 
+                      <Image 
+                        src={carriers.find(c => c.id === selectedCarrier)?.logo || ''} 
                         alt="Carrier Logo" 
+                        width={32}
+                        height={32}
                         className="h-8 object-contain"
+                        style={{ width: 'auto', height: 'auto' }}
                       />
                     ) : (
                       <div className="text-xl font-bold text-center" style={{ color: colors.primary }}>

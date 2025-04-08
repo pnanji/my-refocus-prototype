@@ -10,7 +10,7 @@ interface CarrierBadgeProps {
 }
 
 export function CarrierBadge({ carrier, size = 'md' }: CarrierBadgeProps) {
-  const { primaryColor, lightColor, getBackgroundStyle, getShadowStyle } = useCarrierColors(carrier.id);
+  const { primaryColor, lightColor } = useCarrierColors(carrier.id);
   
   // Size mappings
   const sizeClasses = {
