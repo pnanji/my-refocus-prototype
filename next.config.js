@@ -9,6 +9,7 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    domains: ['localhost'],
   },
   // Ensure TypeScript files are properly processed
   typescript: {

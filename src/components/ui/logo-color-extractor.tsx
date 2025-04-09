@@ -236,7 +236,7 @@ export function LogoColorExtractor() {
                   backgroundColor: "white",
                   backgroundImage: `linear-gradient(to bottom, ${colors.light}, ${colors.light})`,
                   border: '1px solid rgba(0, 0, 0, 0.09)',
-                  boxShadow: `0px -2px 2px 0px rgba(0, 0, 0, 0.12) inset, 
+                  boxShadow: `0px -1px 2px 0px rgba(0, 0, 0, 0.12) inset, 
                               0px 2px 2px 0px rgba(255, 255, 255, 0.7) inset, 
                               0px 25px 50px -12px ${colors.dark}`
                 }}
