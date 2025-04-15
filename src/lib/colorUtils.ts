@@ -208,8 +208,8 @@ export async function extractLogoColors(imageUrl: string): Promise<ColorPalette>
     const [r, g, b] = hexToRgb(primaryColor);
     const [h, s, l] = rgbToHsl(r, g, b);
     
-    // Create a light version (same hue, much higher lightness, 10% opacity)
-    const lightColor = `hsla(${h * 360}, ${Math.min(100, s * 100)}%, ${Math.min(95, l * 100 + 30)}%, 0.1)`;
+    // Create a light version (same hue, same lightness, 10% opacity)
+    const lightColor = `rgba(${r}, ${g}, ${b}, 0.1)`;
     
     // Create a dark version for shadows - darker and more saturated based on Figma values
     // Moving towards bottom right of HSL color graph (high saturation, low lightness)

@@ -1,0 +1,193 @@
+{
+  "policy_details": {
+    "effective_date": "05/09/2025",
+    "quote_date": "04/09/2025",
+    "policy_form": "Homeowners",
+    "agent_number": "23-0882",
+    "rating_state": "Nebraska",
+    "current_insurance": {
+      "has_current_coverage": true,
+      "current_carrier": "State Farm",
+      "cancellation_history": {
+        "has_been_cancelled_declined_nonrenewed": false
+      }
+    }
+  },
+  "applicant_information": {
+    "primary": {
+      "name": "Ahmad Jaffery",
+      "birth_date": "08/15/1980",
+      "marital_status": "Married",
+      "phone_number": "402-555-7890",
+      "email_address": "ahmad.jaffery@example.com"
+    },
+    "has_co_applicant": true,
+    "co_applicant": {
+      "name": "JENNA JAFFERY",
+      "birth_date": "03/22/1982",
+      "marital_status": "Married",
+      "relationship_to_insured": "Spouse"
+    },
+    "address": {
+      "full": "6516 N 242ND ST Valley, NE 68064-2290",
+      "street": "6516 N 242ND ST",
+      "city": "Valley",
+      "state": "NE",
+      "zip_code": "68064-2290"
+    }
+  },
+  "property_details": {
+    "year_built": "1930",
+    "construction_style": "Ranch/Rambler",
+    "dwelling_type": "Single family dwelling",
+    "living_area": "1364 sq ft",
+    "protection_class": "9",
+    "dwelling_status": "Owner Occupied - Primary",
+    "number_of_stories": "1",
+    "wall_height": "8",
+    "electrical_system": {
+      "contains_fuses_knob_tube_aluminum_wiring": "No"
+    },
+    "foundation": {
+      "type": "Basement",
+      "percent": "100",
+      "land_description": "Flat Slope",
+      "basement_finishing": "Unfinished"
+    },
+    "roof": {
+      "material": "Shingles, Architectural",
+      "material_percent": "100",
+      "style": "Gable, Moderate Pitch",
+      "style_percent": "100",
+      "renovation": "None"
+    },
+    "exterior_walls": {
+      "type": "Siding, Wood",
+      "percent": "100"
+    },
+    "garage": {
+      "type": "2 Car - Attached",
+      "count": "1"
+    },
+    "plumbing_renovation": "None",
+    "heating": "Heating, Electric Baseboard",
+    "bathrooms": {
+      "full": "1",
+      "three_quarter": "",
+      "half": ""
+    },
+    "fire_station": {
+      "type": "Career",
+      "distance": "3.7"
+    },
+    "maintenance_condition": "Very Good",
+    "has_mortgage_or_interest": true,
+    "under_construction": false,
+    "has_business_on_premises": false,
+    "short_term_rental": false,
+    "has_horses_or_livestock": true
+  },
+  "interior_features": {
+    "kitchens": {
+      "type": "Standard",
+      "count": "1"
+    },
+    "baths": {
+      "type": "Full, Standard",
+      "count": "1"
+    },
+    "heating": {
+      "type": "Heating, Electric Baseboard",
+      "percent": "100"
+    },
+    "air_conditioning": {
+      "type": "Central Air Conditioning, Same Ducts",
+      "percent": "100"
+    },
+    "floor_finishes": [
+      {
+        "type": "Carpet, Acrylic/Nylon",
+        "percent": "43"
+      },
+      {
+        "type": "Carpet over Hardwood, Acrylic/Nylon",
+        "percent": "25"
+      },
+      {
+        "type": "Hardwood",
+        "percent": "18"
+      },
+      {
+        "type": "Vinyl",
+        "percent": "9"
+      },
+      {
+        "type": "Tile, Ceramic",
+        "percent": "5"
+      }
+    ],
+    "ceiling_finishes": {
+      "type": "Plaster",
+      "percent": "100"
+    }
+  },
+  "coverage_information": {
+    "dwelling_coverage": {
+      "coverage_a": "$311,800",
+      "reconstruction_cost_estimate": "$311,800"
+    },
+    "other_structures": {
+      "coverage_b": "$31,180"
+    },
+    "personal_property": {
+      "coverage_c": "$155,900"
+    },
+    "loss_of_use": {
+      "coverage_d": "$62,360"
+    },
+    "personal_liability": {
+      "coverage_e": "$500,000"
+    },
+    "medical_payments": {
+      "coverage_f": "$5,000"
+    },
+    "roof_settlement_type": "Replacement",
+    "level_option": "Optimum",
+    "included_coverages": {
+      "personal_property_replacement_cost": true,
+      "building_ordinance_law_coverage": "10%",
+      "incidental_farm": false,
+      "outboard_motor_liability": false,
+      "service_line_endorsement": false
+    },
+    "optional_coverages": {
+      "extended_dwelling_coverage": "25%",
+      "loss_assessment": "$5000",
+      "sewer_water_backup": {
+        "for_building_listed_items": true,
+        "for_building_contents": "$10000"
+      },
+      "matching_undamaged": "$10000",
+      "cyber_protection_coverage": "$25000",
+      "water_seepage_leakage": true,
+      "identity_recovery_coverage": false,
+      "special_personal_property": false,
+      "personal_offense": true,
+      "equipment_breakdown": false,
+      "refrigerated_products": false,
+      "valuable_articles": "No",
+      "home_day_care": false,
+      "theft_of_building_materials": "",
+      "extension_owner_occupied_dwelling": {
+        "liability_additional_locations": ""
+      },
+      "landlord_furnishings": false,
+      "homesharing_endorsement": false,
+      "additional_dwellings_rented": ""
+    }
+  },
+  "deductibles": {
+    "all_perils_deductible": "$5,000",
+    "wind_hail_peril": "2%"
+  }
+}
