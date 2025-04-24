@@ -79,6 +79,12 @@ export default function SettingsPage() {
       href: "/settings/users",
     },
     {
+      title: "Billing",
+      description: "Manage your subscription, track usage, and view billing history",
+      href: "/settings/billing",
+      icon: "/billing-icon.svg",
+    },
+    {
       title: "Close Account",
       description: "Learn about account closure and data handling",
       href: "/settings/close-account",

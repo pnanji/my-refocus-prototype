@@ -1,12 +1,10 @@
 "use client"
 
 import {
-  BadgeCheck,
-  Bell,
+  HelpCircle,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
-  Sparkles,
+  Lock,
 } from "lucide-react"
 
 import {
@@ -81,29 +79,22 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+              <DropdownMenuItem asChild>
+                <a href="https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 cursor-pointer">
+                  <HelpCircle className="h-4 w-4" />
+                  Get Help
+                </a>
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
+              <DropdownMenuItem asChild>
+                <a href="https://www.refocusai.com/privacy-policy" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 cursor-pointer">
+                  <Lock className="h-4 w-4" />
+                  Privacy
+                </a>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <LogOut />
+              <LogOut className="h-4 w-4 mr-2" />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

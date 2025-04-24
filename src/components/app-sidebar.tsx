@@ -1,13 +1,14 @@
 "use client"
 
 import * as React from "react"
-import { LayoutDashboard, HelpCircle, Lock, Settings, Users, Palette } from "lucide-react"
+import { LayoutDashboard, Settings, Users, Palette, AlertCircle, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { useConfig } from "@/components/config-panel"
+import { Progress } from "@/components/ui/progress"
+import { subscriptionData } from "@/data/subscription"
 
-import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
@@ -44,19 +45,6 @@ const navItems = [
   },
 ]
 
-const secondaryItems = [
-  {
-    title: "Get Help",
-    url: "https://share.hsforms.com/1cKYQNvogQa6mk6faCaNm2Q4sbg6",
-    icon: HelpCircle,
-  },
-  {
-    title: "Privacy",
-    url: "https://www.refocusai.com/privacy-policy",
-    icon: Lock,
-  },
-]
-
 const userData = {
   name: "Bobby Jaffery",
   company: "CJ Insurance Group",
@@ -64,10 +52,54 @@ const userData = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
-  const { showAmsConnectionError, showCrmConnectionError } = useConfig();
+  const { showAmsConnectionError, showCrmConnectionError, exceedRemarketingQuota } = useConfig();
   
   // Check if there's any connection error
   const hasConnectionError = showAmsConnectionError || showCrmConnectionError;
+  
+  // Remarketing quota calculations for mini card
+  const totalRemarketsAllowed = Math.round(subscriptionData.totalAccounts * (subscriptionData.remarketsPercentage / 100));
+  const remarketingOverage = exceedRemarketingQuota ? 50 : 0; // Simulating 50 accounts over the limit
+  const usedRemarketing = exceedRemarketingQuota 
+    ? totalRemarketsAllowed + remarketingOverage 
+    : subscriptionData.usage.remarketing.used;
+  
+  // Render the mini remarketing card
+  const renderRemarketingCard = () => {
+    if (!exceedRemarketingQuota) return null;
+    
+    return (
+      <div className="px-4 py-2 mb-2">
+        <div className="bg-sidebar border border-gray-700 rounded-lg p-3 text-gray-300">
+          <div className="flex items-center gap-2 mb-2">
+            <AlertCircle className="h-4 w-4 text-yellow-500" />
+            <h4 className="text-xs font-semibold">Remarketing Quota Exceeded</h4>
+          </div>
+          
+          <div className="mb-2">
+            <div className="flex justify-between items-center mb-1">
+              <div className="text-xs text-gray-400">Usage</div>
+              <div className="text-xs font-medium text-gray-300">
+                {usedRemarketing.toLocaleString()} / {totalRemarketsAllowed.toLocaleString()}
+              </div>
+            </div>
+            <Progress 
+              value={120} 
+              className="h-1.5 bg-gray-800 [&>div]:bg-yellow-600"
+            />
+          </div>
+          
+          <Link 
+            href="/settings/billing" 
+            className="flex items-center justify-center gap-1 text-xs text-gray-200 border border-gray-600 hover:bg-gray-700 transition-colors py-1.5 px-2 rounded font-medium mt-2"
+          >
+            <span>View Billing</span>
+            <ExternalLink className="h-3 w-3" />
+          </Link>
+        </div>
+      </div>
+    );
+  };
   
   return (
     <div className="dark">
@@ -83,44 +115,48 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             />
           </div>
         </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {navItems.map((item) => {
-                  const isActive = 
-                    pathname === item.url || 
-                    (item.url !== '/' && pathname.startsWith(item.url));
+        <SidebarContent className="flex flex-col h-full">
+          <div className="flex-grow">
+            <SidebarGroup>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {navItems.map((item) => {
+                    const isActive = 
+                      pathname === item.url || 
+                      (item.url !== '/' && pathname.startsWith(item.url));
+                      
+                    // Check if this is the Settings item and if we need to show the notification dot
+                    // Only show for connection errors, not for quota exceeded
+                    const showNotificationDot = item.title === "Settings" && hasConnectionError;
                     
-                  // Check if this is the Settings item and if we need to show the notification dot
-                  const showNotificationDot = item.title === "Settings" && hasConnectionError;
-                  
-                  return (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild isActive={isActive}>
-                        <Link 
-                          href={item.url} 
-                          className="flex items-center gap-2 relative"
-                        >
-                          <item.icon className="h-5 w-5" />
-                          <span>{item.title}</span>
-                          {showNotificationDot && (
-                            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
-                              <div className="w-[18px] h-[18px] rounded-full bg-red-700 flex items-center justify-center">
-                                <span className="text-white font-bold text-[11px]" style={{ lineHeight: 1 }}>!</span>
+                    return (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton asChild isActive={isActive}>
+                          <Link 
+                            href={item.url} 
+                            className="flex items-center gap-2 relative"
+                          >
+                            <item.icon className="h-5 w-5" />
+                            <span>{item.title}</span>
+                            {showNotificationDot && (
+                              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
+                                <div className="w-[18px] h-[18px] rounded-full bg-red-700 flex items-center justify-center">
+                                  <span className="text-white font-bold text-[11px]" style={{ lineHeight: 1 }}>!</span>
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  );
-                })}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+                            )}
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    );
+                  })}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </div>
           
-          <NavSecondary items={secondaryItems} className="mt-auto" />
+          {/* Mini Remarketing Usage Card - Only show when quota is exceeded */}
+          {renderRemarketingCard()}
         </SidebarContent>
         <SidebarFooter>
           <NavUser user={userData} />

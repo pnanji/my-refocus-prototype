@@ -24,6 +24,10 @@ interface ConfigContextType {
   toggleIsAggregator: () => void;
   isAmsConnected: boolean;
   setIsAmsConnected: (value: boolean) => void;
+  showServicePlan: boolean;
+  toggleShowServicePlan: () => void;
+  exceedRemarketingQuota: boolean;
+  toggleExceedRemarketingQuota: () => void;
 }
 
 const ConfigContext = React.createContext<ConfigContextType>({
@@ -43,6 +47,10 @@ const ConfigContext = React.createContext<ConfigContextType>({
   toggleIsAggregator: () => {},
   isAmsConnected: false,
   setIsAmsConnected: () => {},
+  showServicePlan: true,
+  toggleShowServicePlan: () => {},
+  exceedRemarketingQuota: false,
+  toggleExceedRemarketingQuota: () => {},
 });
 
 export const useConfig = () => React.useContext(ConfigContext);
@@ -55,6 +63,8 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [selectedAms, setSelectedAms] = useState<string | null>(null);
   const [carrierGroups, setCarrierGroups] = useState<CarrierGroups>(sampleCarriers);
   const [isAmsConnected, setIsAmsConnected] = useState(true);
+  const [showServicePlan, setShowServicePlan] = useState(true);
+  const [exceedRemarketingQuota, setExceedRemarketingQuota] = useState(false);
   
   // Use a separate state and useEffect to handle client-side hydration properly
   const [isAggregator, setIsAggregator] = useState(false);
@@ -69,6 +79,16 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     const amsConnected = localStorage.getItem('isAmsConnected');
     if (amsConnected !== null) {
       setIsAmsConnected(JSON.parse(amsConnected));
+    }
+    
+    const servicePlan = localStorage.getItem('showServicePlan');
+    if (servicePlan !== null) {
+      setShowServicePlan(JSON.parse(servicePlan));
+    }
+    
+    const remarkQuota = localStorage.getItem('exceedRemarketingQuota');
+    if (remarkQuota !== null) {
+      setExceedRemarketingQuota(JSON.parse(remarkQuota));
     }
   }, []);
   
@@ -103,6 +123,28 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     }
   };
   
+  const toggleShowServicePlan = () => {
+    setShowServicePlan((prev: boolean) => {
+      const newValue = !prev;
+      // Save to localStorage when value changes
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('showServicePlan', JSON.stringify(newValue));
+      }
+      return newValue;
+    });
+  };
+  
+  const toggleExceedRemarketingQuota = () => {
+    setExceedRemarketingQuota((prev: boolean) => {
+      const newValue = !prev;
+      // Save to localStorage when value changes
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('exceedRemarketingQuota', JSON.stringify(newValue));
+      }
+      return newValue;
+    });
+  };
+  
   return (
     <ConfigContext.Provider
       value={{
@@ -122,6 +164,10 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
         toggleIsAggregator,
         isAmsConnected,
         setIsAmsConnected: handleSetIsAmsConnected,
+        showServicePlan,
+        toggleShowServicePlan,
+        exceedRemarketingQuota,
+        toggleExceedRemarketingQuota,
       }}
     >
       {children}
@@ -145,6 +191,10 @@ export function ConfigPanel() {
     toggleIsAggregator,
     isAmsConnected,
     setIsAmsConnected,
+    showServicePlan,
+    toggleShowServicePlan,
+    exceedRemarketingQuota,
+    toggleExceedRemarketingQuota,
   } = useConfig();
   
   return (
@@ -248,6 +298,44 @@ export function ConfigPanel() {
                     className={cn(
                       "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
                       isAggregator ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+
+              <label className="flex items-center justify-between">
+                <span className="text-sm">Show Service Plan</span>
+                <div
+                  onClick={toggleShowServicePlan}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    showServicePlan ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      showServicePlan ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+
+              <label className="flex items-center justify-between">
+                <span className="text-sm">Exceed Remarketing Quota</span>
+                <div
+                  onClick={toggleExceedRemarketingQuota}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    exceedRemarketingQuota ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      exceedRemarketingQuota ? "translate-x-4" : "translate-x-0.5"
                     )}
                     style={{ margin: "2px 0" }}
                   />
