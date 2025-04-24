@@ -144,7 +144,7 @@ export default function BillingPage() {
                 {exceedRemarketingQuota ? (
                   <Alert variant="warning" className="mt-4 bg-yellow-50 border-yellow-200">
                     <AlertDescription>
-                      You&apos;re <strong>{remarketingOverage}</strong> accounts over your limit. Each additional account costs {subscriptionData.usage.remarketing.overage}.
+                      You&apos;re <strong>{remarketingOverage}</strong> remarkets over your limit. Each additional remarket costs <strong>${overageRate}</strong>.
                     </AlertDescription>
                   </Alert>
                 ) : (
