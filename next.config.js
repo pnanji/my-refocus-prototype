@@ -11,13 +11,12 @@ const nextConfig = {
   experimental: {
     // Use turbo for faster builds
     turbo: {
-      loaders: {
-        // Opt-in on faster transpilation of JavaScript/TypeScript
-        '.js': ['swc-loader'],
-        '.mjs': ['swc-loader'],
-        '.cjs': ['swc-loader'],
-        '.ts': ['swc-loader'],
-        '.tsx': ['swc-loader'],
+      rules: {
+        '*.js': ['swc-loader'],
+        '*.mjs': ['swc-loader'],
+        '*.cjs': ['swc-loader'],
+        '*.ts': ['swc-loader'],
+        '*.tsx': ['swc-loader'],
       },
     },
     // Only use minimal type checking during development
