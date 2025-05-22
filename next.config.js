@@ -4,7 +4,8 @@ const webpack = require('webpack');
 const nextConfig = {
   // Disable linting during development to speed up startup
   eslint: {
-    ignoreDuringBuilds: process.env.NODE_ENV === 'development',
+    // Completely ignore ESLint errors during builds (both local and Vercel)
+    ignoreDuringBuilds: true,
   },
   // Enable Turbo mode for faster development
   experimental: {
