@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Route } from "next";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -135,7 +136,7 @@ export default function RemarketPage() {
   };
 
   const handleRowClick = (clientId: string) => {
-    router.push(`/remarkets/${encodeURIComponent(clientId)}?tab=quotes`);
+    router.push(`/remarkets/${encodeURIComponent(clientId)}?tab=quotes` as Route);
   };
   
   const toggleRowExpand = (e: React.MouseEvent, clientId: string) => {
@@ -406,7 +407,7 @@ export default function RemarketPage() {
             <DropdownMenuItem 
               onClick={() => {
                 if (contextMenu.clientId) {
-                  router.push(`/remarkets/${contextMenu.clientId}?tab=quotes`);
+                  router.push(`/remarkets/${contextMenu.clientId}?tab=quotes` as Route);
                 }
               }}
             >
