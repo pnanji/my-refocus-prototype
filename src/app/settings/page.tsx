@@ -51,16 +51,19 @@ export default function SettingsPage() {
       requiresAms: true,
     },
     {
-      title: "Colors",
-      description: "Extract brand colors from carrier logos for consistent UI styling",
-      href: "/settings/colors",
-      isNew: true,
-    },
-    {
       title: "Notifications",
       description: "Control how we notify you about upcoming at-risk renewals",
       href: "/settings/notifications",
       requiresAms: true,
+    },
+  ];
+
+  // AI Assistant section items
+  const aiAssistantItems: SettingsMenuItem[] = [
+    {
+      title: "Personalize",
+      description: "Add custom instructions so your AI assistant follows your agency's workflows",
+      href: "/settings/ai-assistant",
     },
   ];
 
@@ -82,12 +85,6 @@ export default function SettingsPage() {
       title: "Billing",
       description: "Manage your subscription, track usage, and view billing history",
       href: "/settings/billing",
-      icon: "/billing-icon.svg",
-    },
-    {
-      title: "Close Account",
-      description: "Learn about account closure and data handling",
-      href: "/settings/close-account",
     },
   ];
 
@@ -215,6 +212,16 @@ export default function SettingsPage() {
             <div className="bg-white border rounded-lg overflow-hidden">
               {preferenceItems.map((item, index) => 
                 renderMenuItem(item, index === preferenceItems.length - 1)
+              )}
+            </div>
+          </div>
+
+          {/* AI Assistant Section */}
+          <div className="mb-8">
+            <h2 className="text-base font-medium text-gray-900 mb-3">AI Assistant</h2>
+            <div className="bg-white border rounded-lg overflow-hidden">
+              {aiAssistantItems.map((item, index) => 
+                renderMenuItem(item, index === aiAssistantItems.length - 1)
               )}
             </div>
           </div>

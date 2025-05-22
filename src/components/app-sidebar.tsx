@@ -29,8 +29,8 @@ const navItems = [
     icon: LayoutDashboard,
   },
   {
-    title: "Clients",
-    url: "/clients",
+    title: "Remarkets",
+    url: "/remarkets",
     icon: Users,
   },
   {
@@ -57,12 +57,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Check if there's any connection error
   const hasConnectionError = showAmsConnectionError || showCrmConnectionError;
   
-  // Remarketing quota calculations for mini card
-  const totalRemarketsAllowed = Math.round(subscriptionData.totalAccounts * (subscriptionData.remarketsPercentage / 100));
-  const remarketingOverage = exceedRemarketingQuota ? 50 : 0; // Simulating 50 accounts over the limit
+  // Monthly analyzed accounts (for this prototype, matching billing page)
+  const monthlyAnalyzedAccounts = 256;
+  
+  // Remarketing quota calculations for mini card - updated to match billing page
+  const totalRemarketsAllowed = Math.round(monthlyAnalyzedAccounts * (subscriptionData.remarketsPercentage / 100));
+  const remarketingOverage = exceedRemarketingQuota ? 15 : 0; // Using 15 accounts over to match billing page
   const usedRemarketing = exceedRemarketingQuota 
     ? totalRemarketsAllowed + remarketingOverage 
-    : subscriptionData.usage.remarketing.used;
+    : Math.round(totalRemarketsAllowed * 0.75); // Using 75% of the monthly quota to match billing page
   
   // Render the mini remarketing card
   const renderRemarketingCard = () => {
@@ -84,7 +87,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </div>
             </div>
             <Progress 
-              value={120} 
+              value={100} 
               className="h-1.5 bg-gray-800 [&>div]:bg-yellow-600"
             />
           </div>

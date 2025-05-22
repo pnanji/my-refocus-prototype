@@ -135,7 +135,7 @@ export default function RemarketPage() {
   };
 
   const handleRowClick = (clientId: string) => {
-    router.push(`/clients/${clientId}?tab=quotes`);
+    router.push(`/remarkets/${clientId}?tab=quotes`);
   };
   
   const toggleRowExpand = (e: React.MouseEvent, clientId: string) => {
@@ -306,8 +306,8 @@ export default function RemarketPage() {
               ) : (
                 sortedData.map((client) => (
                   <React.Fragment key={client.id}>
-                    <TableRow 
-                      className="h-12 hover:bg-orange-50 cursor-pointer"
+                    <TableRow
+                      className={`h-12 hover:bg-orange-50 data-[state=selected]:bg-muted border-b transition-colors cursor-pointer`}
                       onClick={() => handleRowClick(client.id)}
                       onContextMenu={(e) => handleContextMenu(e, client.id)}
                     >
@@ -406,7 +406,7 @@ export default function RemarketPage() {
             <DropdownMenuItem 
               onClick={() => {
                 if (contextMenu.clientId) {
-                  router.push(`/clients/${contextMenu.clientId}?tab=quotes`);
+                  router.push(`/remarkets/${contextMenu.clientId}?tab=quotes`);
                 }
               }}
             >

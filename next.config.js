@@ -2,14 +2,42 @@
 const webpack = require('webpack');
 
 const nextConfig = {
+  // Disable linting during development to speed up startup
+  eslint: {
+    ignoreDuringBuilds: process.env.NODE_ENV === 'development',
+  },
+  // Enable Turbo mode for faster development
+  experimental: {
+    // Use turbo for faster builds
+    turbo: {
+      loaders: {
+        // Opt-in on faster transpilation of JavaScript/TypeScript
+        '.js': ['swc-loader'],
+        '.mjs': ['swc-loader'],
+        '.cjs': ['swc-loader'],
+        '.ts': ['swc-loader'],
+        '.tsx': ['swc-loader'],
+      },
+    },
+    // Only use minimal type checking during development
+    typedRoutes: process.env.NODE_ENV === 'production',
+    // Optimize compilation
+    optimizePackageImports: [
+      'react', 'react-dom', 'lucide-react', '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-dialog', '@radix-ui/react-scroll-area'
+    ],
+  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
     ],
-    domains: ['localhost'],
   },
   // Ensure TypeScript files are properly processed
   typescript: {
@@ -17,7 +45,7 @@ const nextConfig = {
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
     // !! WARN !!
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: process.env.NODE_ENV === 'development',
   },
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `process` being defined
