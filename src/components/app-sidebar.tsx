@@ -8,6 +8,7 @@ import Link from "next/link"
 import { useConfig } from "@/components/config-panel"
 import { Progress } from "@/components/ui/progress"
 import { subscriptionData } from "@/data/subscription"
+import { Route } from "next"
 
 import { NavUser } from "@/components/nav-user"
 import {
@@ -136,7 +137,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild isActive={isActive}>
                           <Link 
-                            href={item.url} 
+                            href={item.url as Route} 
                             className="flex items-center gap-2 relative"
                           >
                             <item.icon className="h-5 w-5" />
