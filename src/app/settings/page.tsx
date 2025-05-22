@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Route } from "next";
 
 // Define the types for menu items
 interface SettingsMenuItem {
@@ -146,7 +147,7 @@ export default function SettingsPage() {
     
     // Otherwise, wrap in Link
     return (
-      <Link href={item.href} key={item.title} className="block">
+      <Link href={item.href as Route} key={item.title} className="block">
         {MenuItem}
       </Link>
     );
