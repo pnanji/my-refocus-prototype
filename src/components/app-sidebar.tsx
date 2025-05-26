@@ -58,15 +58,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Check if there's any connection error
   const hasConnectionError = showAmsConnectionError || showCrmConnectionError;
   
-  // Monthly analyzed accounts (for this prototype, matching billing page)
-  const monthlyAnalyzedAccounts = 256;
-  
-  // Remarketing quota calculations for mini card - updated to match billing page
-  const totalRemarketsAllowed = Math.round(monthlyAnalyzedAccounts * (subscriptionData.remarketsPercentage / 100));
+  // Remarketing quota calculations for mini card - updated to match billing page (annual quota)
+  const totalRemarketsAllowed = Math.round(subscriptionData.totalAccounts * (subscriptionData.remarketsPercentage / 100));
   const remarketingOverage = exceedRemarketingQuota ? 15 : 0; // Using 15 accounts over to match billing page
   const usedRemarketing = exceedRemarketingQuota 
     ? totalRemarketsAllowed + remarketingOverage 
-    : Math.round(totalRemarketsAllowed * 0.75); // Using 75% of the monthly quota to match billing page
+    : Math.round(totalRemarketsAllowed * 0.75); // Using 75% of the annual quota to match billing page
   
   // Render the mini remarketing card
   const renderRemarketingCard = () => {

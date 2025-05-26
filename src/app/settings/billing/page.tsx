@@ -14,7 +14,7 @@ export default function BillingPage() {
   
   // Current month details (for this prototype)
   const currentMonth = "April";
-  const currentDate = "April 30, 2024";
+  const currentDate = "April 30, 2025";
   
   // Monthly analyzed accounts (for this prototype, we're simulating 256 accounts analyzed this month)
   const monthlyAnalyzedAccounts = 256;
@@ -26,9 +26,9 @@ export default function BillingPage() {
     ? corePlatformCost * (subscriptionData.servicePlanPercentage / 100) 
     : 0;
     
-  // Calculate remarketing costs if over quota
-  const totalRemarketsAllowed = Math.round(monthlyAnalyzedAccounts * (subscriptionData.remarketsPercentage / 100));
-  const remarketingOverage = exceedRemarketingQuota ? 15 : 0; // Simulating 15 accounts over the monthly limit
+  // Calculate remarketing costs if over quota (based on annual quota from total accounts)
+  const totalRemarketsAllowed = Math.round(subscriptionData.totalAccounts * (subscriptionData.remarketsPercentage / 100));
+  const remarketingOverage = exceedRemarketingQuota ? 15 : 0; // Simulating 15 accounts over the annual limit
   const overageRate = 20; // $20 per additional remarket
   const remarketingOverageCost = remarketingOverage * overageRate;
   
@@ -40,12 +40,12 @@ export default function BillingPage() {
     return Math.round(amount).toLocaleString('en-US');
   };
   
-  // Create a modified features list with the calculated remarketing accounts
+  // Create a modified features list with simplified remarketing text
   const featuresWithRemarketing = subscriptionData.features.map(feature => {
     if (feature.name.includes('remarketing')) {
       return { 
         ...feature, 
-        name: `${subscriptionData.remarketsPercentage}% of analyzed accounts eligible for remarketing (${totalRemarketsAllowed.toLocaleString()} accounts this month)` 
+        name: `${subscriptionData.remarketsPercentage}% of total accounts eligible for remarketing` 
       };
     }
     return feature;
@@ -54,7 +54,7 @@ export default function BillingPage() {
   // For the remarketing usage card, we'll show exceeded usage when the toggle is on
   const usedRemarketing = exceedRemarketingQuota 
     ? totalRemarketsAllowed + remarketingOverage 
-    : Math.round(totalRemarketsAllowed * 0.75); // Using 75% of the monthly quota for the demo
+    : Math.round(totalRemarketsAllowed * 0.75); // Using 75% of the annual quota for the demo
   const remarketingPercentage = exceedRemarketingQuota 
     ? 100 // Exactly 100% to show a completely full bar
     : (usedRemarketing / totalRemarketsAllowed) * 100;
@@ -123,7 +123,7 @@ export default function BillingPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Core Platform Features */}
                   <div>
-                    <h3 className="text-sm font-medium text-gray-600 mb-3">Core Platform Features</h3>
+                    <h3 className="text-sm font-bold text-gray-600 mb-3">Core Platform Features</h3>
                     <div className="space-y-2">
                       {featuresWithRemarketing.map((feature, index) => (
                         <div key={index} className="flex items-center gap-2">
@@ -137,7 +137,7 @@ export default function BillingPage() {
                   {/* Service Plan Features - Only shown if showServicePlan is true */}
                   {showServicePlan && (
                     <div>
-                      <h3 className="text-sm font-medium text-gray-600 mb-3">{subscriptionData.plan} Service Features</h3>
+                      <h3 className="text-sm font-bold text-gray-600 mb-3">{subscriptionData.plan} Service Features</h3>
                       <div className="space-y-2">
                         {subscriptionData.servicePlanFeatures.map((feature, index) => (
                           <div key={index} className="flex items-center gap-2">
@@ -160,13 +160,30 @@ export default function BillingPage() {
             {/* Remarketing Usage Card */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle>Remarketing Quota</CardTitle>
-                <CardDescription>Monthly remarketing usage ({currentMonth})</CardDescription>
+                <div className="flex justify-between items-center">
+                  <CardTitle>Remarketing Quota</CardTitle>
+                  <div className="text-sm text-gray-500">2025</div>
+                </div>
               </CardHeader>
               <CardContent>
+                {/* Quota Details Section */}
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 mb-4">
+                  <div className="text-sm text-gray-800 space-y-2">
+                    <div className="flex justify-between">
+                      <span>Total accounts:</span>
+                      <span className="font-medium">{subscriptionData.totalAccounts.toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Annual remarketing quota (12%):</span>
+                      <span className="font-medium">{totalRemarketsAllowed.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Usage Progress */}
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-1">
-                    <div></div>
+                    <div className="text-sm text-gray-500">Usage</div>
                     <div className="text-sm font-medium">
                       {usedRemarketing.toLocaleString()} / {totalRemarketsAllowed.toLocaleString()}
                     </div>
@@ -180,44 +197,16 @@ export default function BillingPage() {
                 {exceedRemarketingQuota ? (
                   <Alert variant="warning" className="mt-4 bg-yellow-50 border-yellow-200">
                     <AlertDescription>
-                      You&apos;re <strong>{remarketingOverage}</strong> remarkets over your monthly limit. Each additional remarket costs <strong>${overageRate}</strong>.
+                      You&apos;re <strong>{remarketingOverage}</strong> remarkets over your annual limit. Each additional remarket costs <strong>${overageRate}</strong>.
                     </AlertDescription>
                   </Alert>
                 ) : (
-                  <Alert variant="info" className="mt-4 bg-gray-50 border-gray-200 [&>svg]:text-gray-500">
+                  <Alert variant="info" className="mt-4 bg-blue-50 border-blue-200 [&>svg]:text-blue-600">
                     <AlertDescription>
-                      Each additional remarketing over your monthly plan limit will cost {subscriptionData.usage.remarketing.overage}.
+                      Remarkets over your annual plan limit cost {subscriptionData.usage.remarketing.overage}.
                     </AlertDescription>
                   </Alert>
                 )}
-              </CardContent>
-            </Card>
-            
-            {/* Custom Rules Card */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle>Custom Rules</CardTitle>
-                <CardDescription>Custom rules for AI assistant</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-1">
-                    <div></div>
-                    <div className="text-sm font-medium">
-                      {subscriptionData.usage.customRules.used} / {subscriptionData.usage.customRules.total}
-                    </div>
-                  </div>
-                  <Progress 
-                    value={(subscriptionData.usage.customRules.used / subscriptionData.usage.customRules.total) * 100} 
-                    className="h-2 bg-gray-100"
-                  />
-                </div>
-                
-                <Alert variant="info" className="mt-4 bg-gray-50 border-gray-200 [&>svg]:text-gray-500">
-                  <AlertDescription>
-                    Need more than {subscriptionData.usage.customRules.total} custom rules? Add unlimited rules for {subscriptionData.usage.customRules.addonPrice}
-                  </AlertDescription>
-                </Alert>
               </CardContent>
             </Card>
           </div>
