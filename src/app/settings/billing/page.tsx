@@ -7,17 +7,72 @@ import { CheckCircle2 } from "lucide-react";
 import { subscriptionData } from "@/data/subscription";
 import { useConfig } from "@/components/config-panel";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+
+// Generate past months for the dropdown
+const generatePastMonths = () => {
+  const months = [];
+  const currentDate = new Date(2025, 3); // April 2025 (month is 0-indexed)
+  
+  for (let i = 0; i < 12; i++) {
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i);
+    const monthName = date.toLocaleDateString('en-US', { month: 'long' });
+    const year = date.getFullYear();
+    const value = `${monthName.toLowerCase()}-${year}`;
+    const label = i === 0 ? `${monthName} ${year} (Current)` : `${monthName} ${year}`;
+    
+    months.push({
+      value,
+      label,
+      monthName,
+      year,
+      isCurrent: i === 0
+    });
+  }
+  
+  return months;
+};
 
 export default function BillingPage() {
   // Get the showServicePlan and exceedRemarketingQuota states from config context
   const { showServicePlan, exceedRemarketingQuota } = useConfig();
   
-  // Current month details (for this prototype)
-  const currentMonth = "April";
-  const currentDate = "April 30, 2025";
+  // State for selected month
+  const [selectedMonth, setSelectedMonth] = useState("april-2025");
+  const pastMonths = generatePastMonths();
   
-  // Monthly analyzed accounts (for this prototype, we're simulating 256 accounts analyzed this month)
-  const monthlyAnalyzedAccounts = 256;
+  // Find the selected month data
+  const currentMonthData = pastMonths.find(month => month.value === selectedMonth);
+  const isCurrentMonth = currentMonthData?.isCurrent || false;
+  
+  // Current month details (for this prototype)
+  const currentMonth = currentMonthData?.monthName || "April";
+  const currentYear = currentMonthData?.year || 2025;
+  const currentDate = `${currentMonth} 30, ${currentYear}`;
+  
+  // Monthly analyzed accounts (simulate different values for past months)
+  const getMonthlyAnalyzedAccounts = (monthValue: string) => {
+    const baseAccounts = 256;
+    // Simulate variation in past months
+    const variations: Record<string, number> = {
+      "april-2025": 256,
+      "march-2025": 234,
+      "february-2025": 198,
+      "january-2025": 267,
+      "december-2024": 289,
+      "november-2024": 245,
+      "october-2024": 223,
+      "september-2024": 201,
+      "august-2024": 278,
+      "july-2024": 234,
+      "june-2024": 256,
+      "may-2024": 189
+    };
+    return variations[monthValue] || baseAccounts;
+  };
+  
+  const monthlyAnalyzedAccounts = getMonthlyAnalyzedAccounts(selectedMonth);
   
   // Calculate costs based on monthly analyzed accounts
   const corePlatformCost = subscriptionData.pricePerAccount * monthlyAnalyzedAccounts;
@@ -79,10 +134,26 @@ export default function BillingPage() {
               {/* Cost Breakdown Section */}
               <div className="bg-gray-50 rounded-lg p-5 border border-gray-200 w-full my-4">
                 <div className="flex flex-col space-y-4">
-                  {/* Current month heading */}
+                  {/* Month selector heading */}
                   <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                    <h3 className="font-medium text-gray-900">{currentMonth} Activity</h3>
-                    <div className="text-sm text-gray-500">As of {currentDate}</div>
+                    <div className="flex items-center gap-3">
+                      <h3 className="font-medium text-gray-900">Monthly Activity</h3>
+                      <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                        <SelectTrigger className="w-fit min-w-[180px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {pastMonths.map((month) => (
+                            <SelectItem key={month.value} value={month.value}>
+                              {month.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {isCurrentMonth ? `As of ${currentDate}` : `Final bill for ${currentMonth} ${currentYear}`}
+                    </div>
                   </div>
                   
                   <div className="text-sm text-gray-800 space-y-4 pt-2">
@@ -107,14 +178,16 @@ export default function BillingPage() {
                     
                     {/* Total for current month so far */}
                     <div className="flex justify-between pt-3 border-t border-gray-200 font-medium text-gray-900">
-                      <span>Total as of {currentDate}</span>
+                      <span>{isCurrentMonth ? `Total as of ${currentDate}` : `Total for ${currentMonth} ${currentYear}`}</span>
                       <span>${formatCurrency(totalCost)}</span>
                     </div>
                   </div>
                   
-                  <div className="mt-2 text-sm text-gray-500 italic">
-                    Your final monthly bill will be based on the total accounts analyzed by the end of {currentMonth}.
-                  </div>
+                  {isCurrentMonth && (
+                    <div className="mt-2 text-sm text-gray-500 italic">
+                      Your final monthly bill will be based on the total accounts analyzed by the end of {currentMonth}.
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -162,7 +235,7 @@ export default function BillingPage() {
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
                   <CardTitle>Remarketing Quota</CardTitle>
-                  <div className="text-sm text-gray-500">2025</div>
+                  <div className="text-sm text-gray-500">{currentYear}</div>
                 </div>
               </CardHeader>
               <CardContent>

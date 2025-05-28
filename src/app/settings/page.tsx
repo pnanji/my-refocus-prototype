@@ -26,14 +26,17 @@ export default function SettingsPage() {
     {
       title: "AMS",
       description: "Manage connection to your AMS",
-      icon: "/AMS360-logo.png",
       href: "/settings/ams",
     },
     {
       title: "CRM",
       description: "Manage connection and notifications to a CRM",
-      icon: "/person-card-icon.svg",
       href: "/settings/crm",
+    },
+    {
+      title: "Carriers",
+      description: "Manage insurance carriers and their access credentials for automated remarketing",
+      href: "/settings/carriers",
     },
   ];
 
@@ -57,16 +60,14 @@ export default function SettingsPage() {
       href: "/settings/notifications",
       requiresAms: true,
     },
-  ];
-
-  // AI Assistant section items
-  const aiAssistantItems: SettingsMenuItem[] = [
     {
       title: "Personalize",
       description: "Add custom instructions so your AI assistant follows your agency's workflows",
       href: "/settings/ai-assistant",
     },
   ];
+
+
 
   // Organization section items
   const organizationItems: SettingsMenuItem[] = [
@@ -197,16 +198,6 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          {/* Organization Section */}
-          <div className="mb-8">
-            <h2 className="text-base font-medium text-gray-900 mb-3">Organization</h2>
-            <div className="bg-white border rounded-lg overflow-hidden">
-              {organizationItems.map((item, index) => 
-                renderMenuItem(item, index === organizationItems.length - 1)
-              )}
-            </div>
-          </div>
-
           {/* Preferences Section */}
           <div className="mb-8">
             <h2 className="text-base font-medium text-gray-900 mb-3">Preferences</h2>
@@ -217,12 +208,12 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          {/* AI Assistant Section */}
+          {/* Organization Section */}
           <div className="mb-8">
-            <h2 className="text-base font-medium text-gray-900 mb-3">AI Assistant</h2>
+            <h2 className="text-base font-medium text-gray-900 mb-3">Organization</h2>
             <div className="bg-white border rounded-lg overflow-hidden">
-              {aiAssistantItems.map((item, index) => 
-                renderMenuItem(item, index === aiAssistantItems.length - 1)
+              {organizationItems.map((item, index) => 
+                renderMenuItem(item, index === organizationItems.length - 1)
               )}
             </div>
           </div>
