@@ -81,7 +81,7 @@ export default function Dashboard() {
       <div className="flex flex-col">
         {/* Header with company name */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-semibold">CJ Insurance Group</h1>
+          <h1 className="text-2xl font-semibold">CJ Insurance</h1>
         </div>
 
         {/* Weekly Insights Section */}

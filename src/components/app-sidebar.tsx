@@ -48,7 +48,7 @@ const navItems = [
 
 const userData = {
   name: "Bobby Jaffery",
-  company: "CJ Insurance Group",
+  company: "CJ Insurance",
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

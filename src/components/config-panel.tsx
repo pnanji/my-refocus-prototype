@@ -28,6 +28,12 @@ interface ConfigContextType {
   toggleShowServicePlan: () => void;
   exceedRemarketingQuota: boolean;
   toggleExceedRemarketingQuota: () => void;
+  progressiveCredentialError: boolean;
+  toggleProgressiveCredentialError: () => void;
+  progressiveMfaError: boolean;
+  toggleProgressiveMfaError: () => void;
+  showCarriersEmptyState: boolean;
+  toggleShowCarriersEmptyState: () => void;
 }
 
 const ConfigContext = React.createContext<ConfigContextType>({
@@ -51,6 +57,12 @@ const ConfigContext = React.createContext<ConfigContextType>({
   toggleShowServicePlan: () => {},
   exceedRemarketingQuota: false,
   toggleExceedRemarketingQuota: () => {},
+  progressiveCredentialError: false,
+  toggleProgressiveCredentialError: () => {},
+  progressiveMfaError: false,
+  toggleProgressiveMfaError: () => {},
+  showCarriersEmptyState: false,
+  toggleShowCarriersEmptyState: () => {},
 });
 
 export const useConfig = () => React.useContext(ConfigContext);
@@ -65,6 +77,9 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [isAmsConnected, setIsAmsConnected] = useState(true);
   const [showServicePlan, setShowServicePlan] = useState(true);
   const [exceedRemarketingQuota, setExceedRemarketingQuota] = useState(false);
+  const [progressiveCredentialError, setProgressiveCredentialError] = useState(false);
+  const [progressiveMfaError, setProgressiveMfaError] = useState(false);
+  const [showCarriersEmptyState, setShowCarriersEmptyState] = useState(false);
   
   // Use a separate state and useEffect to handle client-side hydration properly
   const [isAggregator, setIsAggregator] = useState(false);
@@ -89,6 +104,21 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
     const remarkQuota = localStorage.getItem('exceedRemarketingQuota');
     if (remarkQuota !== null) {
       setExceedRemarketingQuota(JSON.parse(remarkQuota));
+    }
+
+    const progCredError = localStorage.getItem('progressiveCredentialError');
+    if (progCredError !== null) {
+      setProgressiveCredentialError(JSON.parse(progCredError));
+    }
+
+    const progMfaError = localStorage.getItem('progressiveMfaError');
+    if (progMfaError !== null) {
+      setProgressiveMfaError(JSON.parse(progMfaError));
+    }
+
+    const carriersEmpty = localStorage.getItem('showCarriersEmptyState');
+    if (carriersEmpty !== null) {
+      setShowCarriersEmptyState(JSON.parse(carriersEmpty));
     }
   }, []);
   
@@ -144,6 +174,36 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
       return newValue;
     });
   };
+
+  const toggleProgressiveCredentialError = () => {
+    setProgressiveCredentialError((prev: boolean) => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('progressiveCredentialError', JSON.stringify(newValue));
+      }
+      return newValue;
+    });
+  };
+
+  const toggleProgressiveMfaError = () => {
+    setProgressiveMfaError((prev: boolean) => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('progressiveMfaError', JSON.stringify(newValue));
+      }
+      return newValue;
+    });
+  };
+
+  const toggleShowCarriersEmptyState = () => {
+    setShowCarriersEmptyState((prev: boolean) => {
+      const newValue = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('showCarriersEmptyState', JSON.stringify(newValue));
+      }
+      return newValue;
+    });
+  };
   
   return (
     <ConfigContext.Provider
@@ -168,6 +228,12 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
         toggleShowServicePlan,
         exceedRemarketingQuota,
         toggleExceedRemarketingQuota,
+        progressiveCredentialError,
+        toggleProgressiveCredentialError,
+        progressiveMfaError,
+        toggleProgressiveMfaError,
+        showCarriersEmptyState,
+        toggleShowCarriersEmptyState,
       }}
     >
       {children}
@@ -195,6 +261,12 @@ export function ConfigPanel() {
     toggleShowServicePlan,
     exceedRemarketingQuota,
     toggleExceedRemarketingQuota,
+    progressiveCredentialError,
+    toggleProgressiveCredentialError,
+    progressiveMfaError,
+    toggleProgressiveMfaError,
+    showCarriersEmptyState,
+    toggleShowCarriersEmptyState,
   } = useConfig();
   
   return (
@@ -336,6 +408,63 @@ export function ConfigPanel() {
                     className={cn(
                       "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
                       exceedRemarketingQuota ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+
+              <label className="flex items-center justify-between">
+                <span className="text-sm">Progressive Credential Error</span>
+                <div
+                  onClick={toggleProgressiveCredentialError}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    progressiveCredentialError ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      progressiveCredentialError ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+
+              <label className="flex items-center justify-between">
+                <span className="text-sm">Progressive MFA Error</span>
+                <div
+                  onClick={toggleProgressiveMfaError}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    progressiveMfaError ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      progressiveMfaError ? "translate-x-4" : "translate-x-0.5"
+                    )}
+                    style={{ margin: "2px 0" }}
+                  />
+                </div>
+              </label>
+
+              <label className="flex items-center justify-between">
+                <span className="text-sm">Carriers Empty State</span>
+                <div
+                  onClick={toggleShowCarriersEmptyState}
+                  className={cn(
+                    "relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
+                    showCarriersEmptyState ? "bg-green-500" : "bg-gray-200"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      showCarriersEmptyState ? "translate-x-4" : "translate-x-0.5"
                     )}
                     style={{ margin: "2px 0" }}
                   />
