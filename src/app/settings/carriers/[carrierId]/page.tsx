@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { useRouter } from "next/navigation";
 import { useSavedCarriers } from "../page";
+import type { Route } from "next";
 
 // Sample carrier data
 const carrierData: Record<string, any> = {
@@ -120,7 +121,7 @@ export default function CarrierDetailPage({ params }: CarrierDetailPageProps) {
           <div className="max-w-[640px] mx-auto px-4 pb-10">
             <div className="text-center">
               <h1 className="text-lg font-medium text-gray-900 mb-2">Carrier not found</h1>
-              <Link href="/settings/carriers" className="text-orange-600 hover:underline">
+              <Link href={"/settings/carriers" as Route} className="text-orange-600 hover:underline">
                 Back to carriers
               </Link>
             </div>
@@ -146,7 +147,7 @@ export default function CarrierDetailPage({ params }: CarrierDetailPageProps) {
     
     // Navigate back to carriers page after a short delay
     setTimeout(() => {
-      router.push("/settings/carriers");
+      router.push("/settings/carriers" as Route);
     }, 1000);
 
     // Add carrier to saved list
