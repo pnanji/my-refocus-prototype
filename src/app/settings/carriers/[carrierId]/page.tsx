@@ -105,6 +105,7 @@ export default function CarrierDetailPage({ params }: CarrierDetailPageProps) {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [elevatedUsername, setElevatedUsername] = useState(carrier?.elevatedUsername || "");
   const [elevatedPassword, setElevatedPassword] = useState(carrier?.elevatedPassword || "");
+  const [agentCode, setAgentCode] = useState(carrier?.agentCode || "");
   const [linesOfBusiness, setLinesOfBusiness] = useState<LineOfBusinessConfig[]>([
     { id: "1", line: "", states: [] }
   ]);
@@ -293,6 +294,17 @@ export default function CarrierDetailPage({ params }: CarrierDetailPageProps) {
                   value={elevatedPassword}
                   onChange={(e) => setElevatedPassword(e.target.value)}
                   placeholder="Enter your password"
+                  className="mt-1"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="agent-code">Agent Code/Number</Label>
+                <Input
+                  id="agent-code"
+                  value={agentCode}
+                  onChange={(e) => setAgentCode(e.target.value)}
+                  placeholder="Enter your agent code or number"
                   className="mt-1"
                 />
               </div>
